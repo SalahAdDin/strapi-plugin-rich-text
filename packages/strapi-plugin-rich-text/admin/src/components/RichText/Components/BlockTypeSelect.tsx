@@ -1,5 +1,5 @@
 import { Select, Option } from "@strapi/design-system/Select";
-import { Editor } from "@tiptap/core";
+import { Editor } from "@tiptap/react";
 import { useState, useCallback, useEffect } from "react";
 import { useIntl } from "react-intl";
 
@@ -10,6 +10,9 @@ export default function BlockTypeSelect({ editor }: { editor: Editor }) {
 
   const onSelect = useCallback((type: string) => {
     switch (type) {
+      case "alert":
+        editor.chain().focus().setAlert({ type: "info" }).run();
+        break;
       case "h1":
         editor.chain().focus().toggleHeading({ level: 1 }).run();
         break;
@@ -54,6 +57,7 @@ export default function BlockTypeSelect({ editor }: { editor: Editor }) {
     if (editor.isActive("heading", { level: 4 })) setSelectedType("h4");
     if (editor.isActive("heading", { level: 5 })) setSelectedType("h5");
     if (editor.isActive("heading", { level: 6 })) setSelectedType("h6");
+    if (editor.isActive("alert")) setSelectedType("alert");
     if (editor.isActive("paragraph")) setSelectedType("paragraph");
     if (editor.isActive("blockquote")) setSelectedType("blockquote");
     if (editor.isActive("orderedList")) setSelectedType("orderedList");
@@ -106,6 +110,12 @@ export default function BlockTypeSelect({ editor }: { editor: Editor }) {
         {formatMessage({
           id: "rich-text.editor.toolbar.select.heading-4",
           defaultMessage: "Heading 4",
+        })}
+      </Option>
+      <Option value={"alert"}>
+        {formatMessage({
+          id: "rich-text.editor.toolbar.select.alert",
+          defaultMessage: "Alert",
         })}
       </Option>
       <Option value={"blockquote"}>

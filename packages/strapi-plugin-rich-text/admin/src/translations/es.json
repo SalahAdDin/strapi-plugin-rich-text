@@ -1,4 +1,8 @@
 {
+  "editor.toolbar.button.danger": "Peligro",
+  "editor.toolbar.button.information": "Información",
+  "editor.toolbar.button.success": "Éxito",
+  "editor.toolbar.button.warning": "Advertencia",
   "editor.counter.characters": "{count} caracteres",
   "editor.counter.words": "{count} palabras
   "editor.toolbar.button.abbreviation": "Abreviatura",
@@ -12,6 +16,7 @@
   "editor.toolbar.button.undo": "Deshacer",
   "editor.toolbar.button.redo": "Rehacer",
   "editor.toolbar.placeholder.text-style": "Estilo de Texto",
+  "editor.toolbar.select.alert": "Alerta",
   "editor.toolbar.select.paragraph": "Párrafo",
   "editor.toolbar.select.heading-1": "Encabezado 1",
   "editor.toolbar.select.heading-2": "Encabezado 2",

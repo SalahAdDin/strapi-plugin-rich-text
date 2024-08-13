@@ -1,4 +1,8 @@
 {
+  "editor.toolbar.button.danger": "Tehlike",
+  "editor.toolbar.button.information": "Bilgi",
+  "editor.toolbar.button.success": "Başarı",
+  "editor.toolbar.button.warning": "Uyarı",
   "editor.counter.characters": "{count} harf",
   "editor.counter.words": "{count} kelime",
   "editor.toolbar.button.abbreviation": "Kısaltma",
@@ -12,6 +16,7 @@
   "editor.toolbar.button.undo": "Geri Al",
   "editor.toolbar.button.redo": "Yinele",
   "editor.toolbar.placeholder.text-style": "Metin Stili",
+  "editor.toolbar.select.alert": "Uyarı",
   "editor.toolbar.select.paragraph": "Paragraf",
   "editor.toolbar.select.heading-1": "Başlık 1",
   "editor.toolbar.select.heading-2": "Başlık 2",

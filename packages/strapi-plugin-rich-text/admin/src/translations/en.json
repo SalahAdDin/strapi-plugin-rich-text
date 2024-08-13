@@ -1,4 +1,8 @@
 {
+  "editor.toolbar.button.danger": "Danger",
+  "editor.toolbar.button.information": "Information",
+  "editor.toolbar.button.success": "Success",
+  "editor.toolbar.button.warning": "Warning",
   "editor.counter.characters": "{count} characters",
   "editor.counter.words": "{count} words",
   "editor.toolbar.button.abbreviation": "Abbreviation",
@@ -12,6 +16,7 @@
   "editor.toolbar.button.undo": "Undo",
   "editor.toolbar.button.redo": "Redo",
   "editor.toolbar.placeholder.text-style": "Text Style",
+  "editor.toolbar.select.alert": "Alert",
   "editor.toolbar.select.paragraph": "Paragraph",
   "editor.toolbar.select.heading-1": "Heading 1",
   "editor.toolbar.select.heading-2": "Heading 2",
