@@ -22,6 +22,7 @@ import { Checkbox } from "@strapi/design-system/Checkbox";
 import { useIntl } from "react-intl";
 
 import { StyledToolbar } from "./Toolbar.styles";
+import AbbrDialog from "./Dialogs/AbbrDialog";
 
 interface ToolbarProps {
   editor: Editor | null;
@@ -29,7 +30,7 @@ interface ToolbarProps {
 
 export default function Toolbar({ editor }: ToolbarProps) {
   const [openDialog, setOpenDialog] = useState<
-    "insertLink" | "insertYouTube" | false
+    "insertLink" | "insertYouTube" | "abbr" | false
   >(false);
 
   const { formatMessage } = useIntl();
@@ -99,6 +100,17 @@ export default function Toolbar({ editor }: ToolbarProps) {
               </IconButtonGroup>
               <IconButtonGroup>
                 <IconButton
+                  label={formatMessage({
+                    id: "editor.toolbar.button.abbreviation",
+                    defaultMessage: "Abbreviation",
+                  })}
+                  onClick={() => setOpenDialog("abbr")}
+                  disabled={!editor.can().chain().focus().toggleAbbr("").run()}
+                  className={editor.isActive("abbr") ? "is-active" : ""}
+                >
+                  <span>Ab</span>
+                </IconButton>
+                <IconButton
                   icon={<Minus />}
                   label={formatMessage({
                     id: "rich-text.editor.toolbar.button.horizontal-line",
@@ -145,6 +157,9 @@ export default function Toolbar({ editor }: ToolbarProps) {
           </Flex>
         </Box>
       </StyledToolbar>
+      {openDialog === "abbr" && (
+        <AbbrDialog editor={editor} onExit={() => setOpenDialog(false)} />
+      )}
       {openDialog === "insertLink" && (
         <InsertLinkDialog editor={editor} onExit={() => setOpenDialog(false)} />
       )}
