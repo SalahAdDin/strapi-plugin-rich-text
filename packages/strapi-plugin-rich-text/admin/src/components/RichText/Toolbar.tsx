@@ -119,7 +119,7 @@ export default function Toolbar({ editor }: ToolbarProps) {
                   }
                 />
                 <IconButton
-                  icon={ExtraIcons.YouTube}
+                  icon={<Youtube />}
                   label={formatMessage({
                     id: "rich-text.editor.toolbar.button.youtube",
                     defaultMessage: "YouTube",
