@@ -96,6 +96,40 @@ export default function Toolbar({ editor }: ToolbarProps) {
                   onClick={() => setOpenDialog("insertLink")}
                 />
               </IconButtonGroup>
+
+              <IconButtonGroup>
+                <IconButton
+                  icon={<AlignLeft />}
+                  label={formatMessage({
+                    id: "rich-text.editor.toolbar.button.align-left",
+                    defaultMessage: "Left",
+                  })}
+                  onClick={() =>
+                    editor.chain().focus().setTextAlign("left").run()
+                  }
+                />
+                <IconButton
+                  icon={<AlignCenter />}
+                  label={formatMessage({
+                    id: "rich-text.editor.toolbar.button.align-center",
+                    defaultMessage: "Center",
+                  })}
+                  onClick={() =>
+                    editor.chain().focus().setTextAlign("center").run()
+                  }
+                />
+                <IconButton
+                  icon={<AlignRight />}
+                  label={formatMessage({
+                    id: "rich-text.editor.toolbar.button.align-right",
+                    defaultMessage: "Right",
+                  })}
+                  onClick={() =>
+                    editor.chain().focus().setTextAlign("right").run()
+                  }
+                />
+              </IconButtonGroup>
+
               <IconButtonGroup>
                 <IconButton
                   label={formatMessage({
