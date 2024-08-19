@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Editor } from "@tiptap/react";
 import { Box } from "@strapi/design-system/Box";
 import { Flex } from "@strapi/design-system/Flex";
@@ -8,10 +8,12 @@ import {
   ArrowRight,
   Bold,
   Italic,
-  StrikeThrough,
-  Underline,
   Link,
   Minus,
+  PaintBrush,
+  Pencil,
+  StrikeThrough,
+  Underline,
 } from "@strapi/icons";
 import { useIntl } from "react-intl";
 
@@ -21,15 +23,23 @@ import InsertYouTubeDialog from "./Dialogs/InsertYouTubeDialog";
 import { StyledToolbar } from "./Toolbar.styles";
 import BlockTypeSelect from "./Components/BlockTypeSelect";
 import Youtube from "./Icons/Youtube";
+import AlignLeft from "./Icons/AlignLeft";
+import AlignCenter from "./Icons/AlignCenter";
+import AlignRight from "./Icons/AlignRight";
+import ColorPickerPopover from "./Components/ColorPickerPopover";
+import { rgbaToHex, rgbStringToRgba } from "../../lib/color";
 
 interface ToolbarProps {
   editor: Editor | null;
 }
 
 export default function Toolbar({ editor }: ToolbarProps) {
+  const colorSourceRef = useRef(null);
+  const highlightSourceRef = useRef(null!);
   const [openDialog, setOpenDialog] = useState<
-    "insertLink" | "insertYouTube" | "abbr" | false
+    "color" | "highlight" | "insertLink" | "insertYouTube" | "abbr" | false
   >(false);
+  const [color, setColor] = useState<string>();
 
   const { formatMessage } = useIntl();
 
@@ -85,6 +95,40 @@ export default function Toolbar({ editor }: ToolbarProps) {
                   onClick={() => editor.chain().focus().toggleStrike().run()}
                   disabled={!editor.can().chain().focus().toggleStrike().run()}
                   className={editor.isActive("strike") ? "is-active" : ""}
+                />
+                <IconButton
+                  ref={colorSourceRef}
+                  icon={<PaintBrush />}
+                  label={formatMessage({
+                    id: "rich-text.editor.toolbar.button.color",
+                    defaultMessage: "Color",
+                  })}
+                  onClick={() => {
+                    const currentColor = rgbStringToRgba(
+                      editor.getAttributes("textStyle").color
+                    );
+
+                    setColor(rgbaToHex(currentColor));
+
+                    setOpenDialog("color");
+                  }}
+                />
+                <IconButton
+                  ref={highlightSourceRef}
+                  icon={<Pencil />}
+                  label={formatMessage({
+                    id: "rich-text.editor.toolbar.button.highlight",
+                    defaultMessage: "Highlight",
+                  })}
+                  onClick={() => {
+                    const currentColor = rgbStringToRgba(
+                      editor.getAttributes("highlight").color
+                    );
+
+                    setColor(rgbaToHex(currentColor));
+
+                    setOpenDialog("highlight");
+                  }}
                 />
                 <IconButton
                   icon={<Link />}
@@ -191,6 +235,34 @@ export default function Toolbar({ editor }: ToolbarProps) {
       </StyledToolbar>
       {openDialog === "abbr" && (
         <AbbrDialog editor={editor} onExit={() => setOpenDialog(false)} />
+      )}
+      {openDialog === "color" && (
+        <ColorPickerPopover
+          ref={colorSourceRef}
+          color={color}
+          onExit={() => setOpenDialog(false)}
+          onRemove={() => editor.commands.unsetColor()}
+          onChange={(color: string) =>
+            editor.chain().focus().setColor(color).run()
+          }
+        />
+      )}
+      {openDialog === "highlight" && (
+        <ColorPickerPopover
+          ref={highlightSourceRef}
+          color={color}
+          onExit={() => setOpenDialog(false)}
+          onRemove={() => editor.commands.unsetHighlight()}
+          onChange={(color: string) =>
+            editor
+              .chain()
+              .focus()
+              .toggleHighlight({
+                color,
+              })
+              .run()
+          }
+        />
       )}
       {openDialog === "insertLink" && (
         <InsertLinkDialog editor={editor} onExit={() => setOpenDialog(false)} />
