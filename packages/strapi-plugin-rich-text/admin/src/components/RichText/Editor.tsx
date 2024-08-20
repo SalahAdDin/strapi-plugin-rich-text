@@ -5,6 +5,8 @@ import { BulletList } from "@tiptap/extension-bullet-list";
 import { CharacterCount } from "@tiptap/extension-character-count";
 import { Code } from "@tiptap/extension-code";
 import { CodeBlock } from "@tiptap/extension-code-block";
+import { Color } from "@tiptap/extension-color";
+import { Highlight } from "@tiptap/extension-highlight";
 import { Document } from "@tiptap/extension-document";
 import { Dropcursor } from "@tiptap/extension-dropcursor";
 import { FloatingMenu } from "@tiptap/extension-floating-menu";
@@ -21,6 +23,7 @@ import { OrderedList } from "@tiptap/extension-ordered-list";
 import { Paragraph } from "@tiptap/extension-paragraph";
 import { Strike } from "@tiptap/extension-strike";
 import { TextAlign } from "@tiptap/extension-text-align";
+import { TextStyle } from "@tiptap/extension-text-style";
 import { Text } from "@tiptap/extension-text";
 import { Underline } from "@tiptap/extension-underline";
 import { Youtube } from "@tiptap/extension-youtube";
@@ -48,11 +51,13 @@ const extensions: (Extension | Node | Mark)[] = [
   }),
   Code,
   CodeBlock,
+  Color,
   Document,
   Dropcursor,
   Gapcursor,
   HardBreak,
   Heading,
+  Highlight.configure({ multicolor: true }),
   History,
   HorizontalRule,
   Image,
@@ -62,7 +67,10 @@ const extensions: (Extension | Node | Mark)[] = [
   OrderedList,
   Paragraph,
   Strike,
-  TextAlign,
+  TextAlign.configure({
+    types: ["heading", "paragraph"],
+  }),
+  TextStyle,
   Text,
   Underline,
   Youtube.configure({
