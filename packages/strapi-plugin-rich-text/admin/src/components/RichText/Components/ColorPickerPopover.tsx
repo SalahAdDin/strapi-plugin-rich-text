@@ -1,14 +1,15 @@
+import React, { forwardRef, useCallback, useState } from "react";
+
+import { createComponent, EventName } from "@lit/react";
 import { Box } from "@strapi/design-system/Box";
 import { Flex } from "@strapi/design-system/Flex";
 import { IconButton } from "@strapi/design-system/IconButton";
 import { Popover } from "@strapi/design-system/Popover";
 import { Check } from "@strapi/icons";
 import { Trash } from "@strapi/icons";
-import { forwardRef, useCallback, useState } from "react";
+
 import { useIntl } from "react-intl";
-import { createComponent, EventName } from "@lit/react";
 import { HexColorPicker } from "vanilla-colorful/hex-color-picker.js";
-import React from "react";
 
 const ColorPicker = createComponent({
   react: React,
