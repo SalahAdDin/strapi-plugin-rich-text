@@ -17,17 +17,18 @@ import {
 } from "@strapi/icons";
 import { useIntl } from "react-intl";
 
+import { rgbaToHex, rgbStringToRgba, validHex } from "../../lib/color";
+
+import BlockTypeSelect from "./Components/BlockTypeSelect";
+import ColorPickerPopover from "./Components/ColorPickerPopover";
 import AbbrDialog from "./Dialogs/AbbrDialog";
 import InsertLinkDialog from "./Dialogs/InsertLinkDialog";
 import InsertYouTubeDialog from "./Dialogs/InsertYouTubeDialog";
-import { StyledToolbar } from "./Toolbar.styles";
-import BlockTypeSelect from "./Components/BlockTypeSelect";
 import Youtube from "./Icons/Youtube";
 import AlignLeft from "./Icons/AlignLeft";
 import AlignCenter from "./Icons/AlignCenter";
 import AlignRight from "./Icons/AlignRight";
-import ColorPickerPopover from "./Components/ColorPickerPopover";
-import { rgbaToHex, rgbStringToRgba } from "../../lib/color";
+import { StyledToolbar } from "./Toolbar.styles";
 
 interface ToolbarProps {
   editor: Editor | null;
@@ -104,11 +105,12 @@ export default function Toolbar({ editor }: ToolbarProps) {
                     defaultMessage: "Color",
                   })}
                   onClick={() => {
-                    const currentColor = rgbStringToRgba(
-                      editor.getAttributes("textStyle").color
-                    );
+                    const stringColor = editor.getAttributes("textStyle").color;
+                    const color = validHex(stringColor)
+                      ? stringColor
+                      : rgbaToHex(rgbStringToRgba(stringColor));
 
-                    setColor(rgbaToHex(currentColor));
+                    setColor(color);
 
                     setOpenDialog("color");
                   }}
@@ -121,12 +123,12 @@ export default function Toolbar({ editor }: ToolbarProps) {
                     defaultMessage: "Highlight",
                   })}
                   onClick={() => {
-                    const currentColor = rgbStringToRgba(
-                      editor.getAttributes("highlight").color
-                    );
+                    const stringColor = editor.getAttributes("highlight").color;
+                    const color = validHex(stringColor)
+                      ? stringColor
+                      : rgbaToHex(rgbStringToRgba(stringColor));
 
-                    setColor(rgbaToHex(currentColor));
-
+                    setColor(color);
                     setOpenDialog("highlight");
                   }}
                 />

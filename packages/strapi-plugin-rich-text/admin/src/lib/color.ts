@@ -1,16 +1,24 @@
-import type { RgbColor, RgbaColor } from "../../../types/color";
+import type { RgbaColor } from "../../../types/color";
 
-export const round = (
-  number: number,
-  digits = 0,
-  base = Math.pow(10, digits)
-): number => {
-  return Math.round(base * number) / base;
-};
+import { round } from "./math";
 
 const format = (number: number) => {
   const hex = number.toString(16);
   return hex.length < 2 ? "0" + hex : hex;
+};
+
+const matcher = /^#?([0-9A-F]{3,8})$/i;
+
+export const validHex = (value: string, alpha?: boolean): boolean => {
+  const match = matcher.exec(value);
+  const length = match ? match[1].length : 0;
+
+  return (
+    length === 3 || // '#rgb' format
+    length === 6 || // '#rrggbb' format
+    (!!alpha && length === 4) || // '#rgba' format
+    (!!alpha && length === 8) // '#rrggbbaa' format
+  );
 };
 
 export const rgbaStringToRgba = (rgbaString: string): RgbaColor => {
