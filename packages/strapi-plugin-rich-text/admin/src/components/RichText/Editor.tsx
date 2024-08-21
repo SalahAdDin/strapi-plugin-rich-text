@@ -119,6 +119,7 @@ export default function Editor({ initialContent, onChange }: EditorProps) {
     <StyledEditor data-plugin-rich-text-editor>
       <Toolbar editor={editor} />
       {editor && <AlertToolbar editor={editor} />}
+      {editor && <TableToolbar editor={editor} />}
       <EditorContent editor={editor} />
       <CountDisplay
         characters={editor.storage.characterCount.characters()}
