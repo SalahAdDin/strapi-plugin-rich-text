@@ -215,7 +215,7 @@ export default function Toolbar({ editor }: ToolbarProps) {
                     editor
                       .chain()
                       .focus()
-                      .insertTable({ cols: 3, rows: 3, withHeaderRow: false })
+                      .insertTable({ cols: 3, rows: 3, withHeaderRow: true })
                       .run()
                   }
                 />
