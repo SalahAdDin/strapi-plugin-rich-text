@@ -5,6 +5,8 @@ import { BulletList } from "@tiptap/extension-bullet-list";
 import { CharacterCount } from "@tiptap/extension-character-count";
 import { Code } from "@tiptap/extension-code";
 import { CodeBlock } from "@tiptap/extension-code-block";
+import { Color } from "@tiptap/extension-color";
+import { Highlight } from "@tiptap/extension-highlight";
 import { Document } from "@tiptap/extension-document";
 import { Dropcursor } from "@tiptap/extension-dropcursor";
 import { FloatingMenu } from "@tiptap/extension-floating-menu";
@@ -20,7 +22,12 @@ import { ListItem } from "@tiptap/extension-list-item";
 import { OrderedList } from "@tiptap/extension-ordered-list";
 import { Paragraph } from "@tiptap/extension-paragraph";
 import { Strike } from "@tiptap/extension-strike";
+import { Table } from "@tiptap/extension-table";
+import { TableRow } from "@tiptap/extension-table-row";
+import { TableCell } from "@tiptap/extension-table-cell";
+import { TableHeader } from "@tiptap/extension-table-header";
 import { TextAlign } from "@tiptap/extension-text-align";
+import { TextStyle } from "@tiptap/extension-text-style";
 import { Text } from "@tiptap/extension-text";
 import { Underline } from "@tiptap/extension-underline";
 import { Youtube } from "@tiptap/extension-youtube";
@@ -28,6 +35,7 @@ import { Youtube } from "@tiptap/extension-youtube";
 import Abbr from "../../extensions/extension-abbr";
 
 import AlertToolbar from "./Components/AlertToolbar";
+import TableToolbar from "./Components/TableToolbar";
 import CountDisplay from "./CountDisplay";
 import { StyledEditor } from "./Editor.styles";
 import Toolbar from "./Toolbar";
@@ -48,11 +56,13 @@ const extensions: (Extension | Node | Mark)[] = [
   }),
   Code,
   CodeBlock,
+  Color,
   Document,
   Dropcursor,
   Gapcursor,
   HardBreak,
   Heading,
+  Highlight.configure({ multicolor: true }),
   History,
   HorizontalRule,
   Image,
@@ -62,7 +72,16 @@ const extensions: (Extension | Node | Mark)[] = [
   OrderedList,
   Paragraph,
   Strike,
-  TextAlign,
+  Table.configure({
+    allowTableNodeSelection: true,
+  }),
+  TableCell,
+  TableHeader,
+  TableRow,
+  TextAlign.configure({
+    types: ["heading", "paragraph"],
+  }),
+  TextStyle,
   Text,
   Underline,
   Youtube.configure({
@@ -100,6 +119,7 @@ export default function Editor({ initialContent, onChange }: EditorProps) {
     <StyledEditor data-plugin-rich-text-editor>
       <Toolbar editor={editor} />
       {editor && <AlertToolbar editor={editor} />}
+      {editor && <TableToolbar editor={editor} />}
       <EditorContent editor={editor} />
       <CountDisplay
         characters={editor.storage.characterCount.characters()}
