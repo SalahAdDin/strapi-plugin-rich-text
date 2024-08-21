@@ -28,6 +28,7 @@ import Youtube from "./Icons/Youtube";
 import AlignLeft from "./Icons/AlignLeft";
 import AlignCenter from "./Icons/AlignCenter";
 import AlignRight from "./Icons/AlignRight";
+import NewTableIcon from "./Icons/Table/NewTable";
 import { StyledToolbar } from "./Toolbar.styles";
 
 interface ToolbarProps {
@@ -104,6 +105,7 @@ export default function Toolbar({ editor }: ToolbarProps) {
                     id: "rich-text.editor.toolbar.button.color",
                     defaultMessage: "Color",
                   })}
+                  disabled={editor.view.state.selection.empty}
                   onClick={() => {
                     const stringColor = editor.getAttributes("textStyle").color;
                     const color = validHex(stringColor)
@@ -122,6 +124,7 @@ export default function Toolbar({ editor }: ToolbarProps) {
                     id: "rich-text.editor.toolbar.button.highlight",
                     defaultMessage: "Highlight",
                   })}
+                  disabled={editor.view.state.selection.empty}
                   onClick={() => {
                     const stringColor = editor.getAttributes("highlight").color;
                     const color = validHex(stringColor)
@@ -179,7 +182,7 @@ export default function Toolbar({ editor }: ToolbarProps) {
               <IconButtonGroup>
                 <IconButton
                   label={formatMessage({
-                    id: "editor.toolbar.button.abbreviation",
+                    id: "rich-text.editor.toolbar.button.abbreviation",
                     defaultMessage: "Abbreviation",
                   })}
                   onClick={() => setOpenDialog("abbr")}
@@ -199,6 +202,24 @@ export default function Toolbar({ editor }: ToolbarProps) {
                   }
                 />
                 <IconButton
+                  icon={<NewTableIcon />}
+                  label={formatMessage({
+                    id: "rich-text.editor.toolbar.button.table",
+                    defaultMessage: "Table",
+                  })}
+                  className={editor.isActive("table") ? "is-active" : ""}
+                  disabled={
+                    editor.view.state.selection.$head.parent.content.size !== 0
+                  }
+                  onClick={() =>
+                    editor
+                      .chain()
+                      .focus()
+                      .insertTable({ cols: 3, rows: 3, withHeaderRow: false })
+                      .run()
+                  }
+                />
+                <IconButton
                   icon={<Youtube />}
                   label={formatMessage({
                     id: "rich-text.editor.toolbar.button.youtube",
@@ -211,6 +232,7 @@ export default function Toolbar({ editor }: ToolbarProps) {
                   onClick={() => setOpenDialog("insertYouTube")}
                 />
               </IconButtonGroup>
+
               <IconButtonGroup>
                 <IconButton
                   icon={<ArrowLeft style={{ width: "0.7rem" }} />}

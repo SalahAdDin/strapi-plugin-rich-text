@@ -9,7 +9,7 @@ import {
 import { Editor, FloatingMenu } from "@tiptap/react";
 import { useIntl } from "react-intl";
 
-import { StyledToolbar } from "./AlertToolbar.styles";
+import { StyledToolbar } from "./StyledToolbar.styles";
 
 export default function AlertToolbar({ editor }: { editor: Editor }) {
   const { formatMessage } = useIntl();

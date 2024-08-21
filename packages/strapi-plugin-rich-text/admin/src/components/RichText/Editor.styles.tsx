@@ -169,6 +169,66 @@ export const StyledEditor = styled("div")`
       margin: 1rem 0;
     }
 
+    table {
+      border-collapse: collapse;
+      margin: 0;
+      overflow: hidden;
+      table-layout: fixed;
+      width: 100%;
+
+      td,
+      th {
+        border: 1px solid ${({ theme }) => theme.colors.neutral300};
+        box-sizing: border-box;
+        min-width: 1em;
+        padding: 6px 8px;
+        position: relative;
+        vertical-align: top;
+
+        > * {
+          margin-bottom: 0;
+        }
+      }
+
+      th {
+        background-color: ${({ theme }) => theme.colors.neutral100};
+        font-weight: bold;
+        text-align: left;
+      }
+
+      .selectedCell:after {
+        background: ${({ theme }) => theme.colors.neutral200};
+        content: "";
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        pointer-events: none;
+        position: absolute;
+        z-index: 2;
+      }
+
+      .column-resize-handle {
+        background-color: ${({ theme }) => theme.colors.primary500};
+        bottom: -2px;
+        pointer-events: none;
+        position: absolute;
+        right: -2px;
+        top: 0;
+        width: 4px;
+      }
+    }
+
+    .tableWrapper {
+      margin: 1.5rem 0;
+      overflow-x: auto;
+    }
+
+    &.resize-cursor {
+      cursor: ew-resize;
+      cursor: col-resize;
+    }
+
     [data-youtube-video] {
       position: relative;
       width: 100%;
