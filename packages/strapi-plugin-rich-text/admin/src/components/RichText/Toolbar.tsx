@@ -28,6 +28,7 @@ import Youtube from "./Icons/Youtube";
 import AlignLeft from "./Icons/AlignLeft";
 import AlignCenter from "./Icons/AlignCenter";
 import AlignRight from "./Icons/AlignRight";
+import NewTableIcon from "./Icons/Table/NewTable";
 import { StyledToolbar } from "./Toolbar.styles";
 
 interface ToolbarProps {
@@ -198,6 +199,24 @@ export default function Toolbar({ editor }: ToolbarProps) {
                   })}
                   onClick={() =>
                     editor.chain().focus().setHorizontalRule().run()
+                  }
+                />
+                <IconButton
+                  icon={<NewTableIcon />}
+                  label={formatMessage({
+                    id: "rich-text.editor.toolbar.button.table",
+                    defaultMessage: "Table",
+                  })}
+                  className={editor.isActive("table") ? "is-active" : ""}
+                  disabled={
+                    editor.view.state.selection.$head.parent.content.size !== 0
+                  }
+                  onClick={() =>
+                    editor
+                      .chain()
+                      .focus()
+                      .insertTable({ cols: 3, rows: 3, withHeaderRow: false })
+                      .run()
                   }
                 />
                 <IconButton
