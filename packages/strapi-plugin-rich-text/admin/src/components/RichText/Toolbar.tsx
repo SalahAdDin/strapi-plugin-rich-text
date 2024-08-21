@@ -104,6 +104,7 @@ export default function Toolbar({ editor }: ToolbarProps) {
                     id: "rich-text.editor.toolbar.button.color",
                     defaultMessage: "Color",
                   })}
+                  disabled={editor.view.state.selection.empty}
                   onClick={() => {
                     const stringColor = editor.getAttributes("textStyle").color;
                     const color = validHex(stringColor)
@@ -122,6 +123,7 @@ export default function Toolbar({ editor }: ToolbarProps) {
                     id: "rich-text.editor.toolbar.button.highlight",
                     defaultMessage: "Highlight",
                   })}
+                  disabled={editor.view.state.selection.empty}
                   onClick={() => {
                     const stringColor = editor.getAttributes("highlight").color;
                     const color = validHex(stringColor)
@@ -179,7 +181,7 @@ export default function Toolbar({ editor }: ToolbarProps) {
               <IconButtonGroup>
                 <IconButton
                   label={formatMessage({
-                    id: "editor.toolbar.button.abbreviation",
+                    id: "rich-text.editor.toolbar.button.abbreviation",
                     defaultMessage: "Abbreviation",
                   })}
                   onClick={() => setOpenDialog("abbr")}
@@ -211,6 +213,7 @@ export default function Toolbar({ editor }: ToolbarProps) {
                   onClick={() => setOpenDialog("insertYouTube")}
                 />
               </IconButtonGroup>
+
               <IconButtonGroup>
                 <IconButton
                   icon={<ArrowLeft style={{ width: "0.7rem" }} />}
