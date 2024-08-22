@@ -99,7 +99,7 @@ export default function Toolbar({ editor }: ToolbarProps) {
               <IconButtonGroup>
                 <IconButton
                   label={formatMessage({
-                    id: "editor.toolbar.button.abbreviation",
+                    id: "rich-text.editor.toolbar.button.abbreviation",
                     defaultMessage: "Abbreviation",
                   })}
                   onClick={() => setOpenDialog("abbr")}
@@ -119,7 +119,7 @@ export default function Toolbar({ editor }: ToolbarProps) {
                   }
                 />
                 <IconButton
-                  icon={ExtraIcons.YouTube}
+                  icon={<Youtube />}
                   label={formatMessage({
                     id: "rich-text.editor.toolbar.button.youtube",
                     defaultMessage: "YouTube",
