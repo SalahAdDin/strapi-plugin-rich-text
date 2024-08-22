@@ -43,7 +43,7 @@ export default memo(function CountDisplay({
       )}
       {formatMessage(
         {
-          id: "editor.counter.characters",
+          id: "rich-text.editor.counter.characters",
           defaultMessage: "{count} characters",
         },
         {
@@ -53,7 +53,7 @@ export default memo(function CountDisplay({
       <br />
       {formatMessage(
         {
-          id: "editor.counter.words",
+          id: "rich-text.editor.counter.words",
           defaultMessage: "{count} words",
         },
         { count: words }

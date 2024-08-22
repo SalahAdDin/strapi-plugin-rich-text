@@ -44,7 +44,7 @@ export default function AbbrDialog({ editor, onExit }: DialogProps) {
     <Dialog
       onClose={onClose}
       title={formatMessage({
-        id: "editor.dialog.title.insert-abbreviation",
+        id: "rich-text.editor.dialog.title.insert-abbreviation",
         defaultMessage: "Insert Abbreviation",
       })}
       isOpen={true}
@@ -53,11 +53,11 @@ export default function AbbrDialog({ editor, onExit }: DialogProps) {
         <Stack spacing={2}>
           <TextInput
             label={formatMessage({
-              id: "editor.dialog.label.title",
+              id: "rich-text.editor.dialog.label.title",
               defaultMessage: "Title",
             })}
             placeholder={formatMessage({
-              id: "editor.dialog.placeholder.abbreviation-title",
+              id: "rich-text.editor.dialog.placeholder.abbreviation-title",
               defaultMessage: "Abbreviation's title",
             })}
             name="title"
@@ -67,7 +67,7 @@ export default function AbbrDialog({ editor, onExit }: DialogProps) {
             }}
             value={title}
             aria-label={formatMessage({
-              id: "editor.dialog.label.title",
+              id: "rich-text.editor.dialog.label.title",
               defaultMessage: "Title",
             })}
           />
@@ -89,7 +89,7 @@ export default function AbbrDialog({ editor, onExit }: DialogProps) {
           >
             {formatMessage(
               {
-                id: "editor.dialog.button.abbreviation-confirm",
+                id: "rich-text.editor.dialog.button.abbreviation-confirm",
                 defaultMessage: "{action} Abbreviation",
               },
               {
