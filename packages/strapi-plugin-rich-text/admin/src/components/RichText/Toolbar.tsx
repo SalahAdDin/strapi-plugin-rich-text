@@ -101,7 +101,7 @@ export default function Toolbar({ editor }: ToolbarProps) {
               <IconButtonGroup>
                 <IconButton
                   label={formatMessage({
-                    id: "editor.toolbar.button.abbreviation",
+                    id: "rich-text.editor.toolbar.button.abbreviation",
                     defaultMessage: "Abbreviation",
                   })}
                   onClick={() => setOpenDialog("abbr")}
@@ -355,7 +355,7 @@ function InsertLinkDialog({ editor, onExit }: DialogProps) {
     <Dialog
       onClose={onClose}
       title={formatMessage({
-        id: "editor.dialog.title.insert-link",
+        id: "rich-text.editor.dialog.title.insert-link",
         defaultMessage: "Insert link",
       })}
       isOpen={true}
@@ -412,7 +412,7 @@ function InsertLinkDialog({ editor, onExit }: DialogProps) {
           >
             {formatMessage(
               {
-                id: "editor.dialog.button.link-confirm",
+                id: "rich-text.editor.dialog.button.link-confirm",
                 defaultMessage: "{action} Link",
               },
               {
@@ -476,7 +476,7 @@ function InsertYouTubeDialog({ editor, onExit }: DialogProps) {
     <Dialog
       onClose={onExit}
       title={formatMessage({
-        id: "editor.dialog.title.insert-youtube-embed",
+        id: "rich-text.editor.dialog.title.insert-youtube-embed",
         defaultMessage: "Insert YouTube embed",
       })}
       isOpen={true}
