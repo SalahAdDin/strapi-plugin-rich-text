@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "description": "A rich text editor that replaces the default WYSIWYG editor in Strapi",
   "strapi": {
-    "name": "strapi-plugin-rich-text",
+    "name": "richtext-editor",
     "displayName": "Rich Text",
     "description": "A rich text editor that replaces the default WYSIWYG editor",
     "kind": "plugin"
