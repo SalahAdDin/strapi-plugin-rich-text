@@ -1,7 +1,7 @@
 import { Strapi } from "@strapi/strapi";
 
 import pluginPkg from "../../package.json";
-import defaultSettings from "../defaults";
+import defaultSettings from "../config/defaults";
 
 const name = pluginPkg.strapi.name;
 

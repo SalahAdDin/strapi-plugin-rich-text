@@ -1,3 +1,3 @@
-import admin from "./admin";
+import settings from "./settings";
 
-export default { admin };
+export default { settings };
