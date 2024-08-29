@@ -24,13 +24,6 @@ export default function TableToolbar({ editor }: { editor: Editor }) {
         const { $anchor } = selection;
         const isRootDepth = $anchor.depth === 1;
 
-        console.log(
-          "Joder:",
-          isRootDepth,
-          editor.isEditable,
-          editor.isActive("table")
-        );
-
         return !isRootDepth && editor.isEditable && editor.isActive("table");
       }}
     >
