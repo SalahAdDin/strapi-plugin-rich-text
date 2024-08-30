@@ -1,9 +1,7 @@
 import { Strapi } from "@strapi/strapi";
 
-import pluginPkg from "../../package.json";
 import defaultSettings from "../config/defaults";
-
-const name = pluginPkg.strapi.name;
+import { getCoreStore, getService } from "../utils";
 
 export default ({ strapi }: { strapi: Strapi }) => ({
   async getSettings(ctx) {
@@ -12,7 +10,7 @@ export default ({ strapi }: { strapi: Strapi }) => ({
       return;
     }
 
-    const config = await strapi.plugin(name).service("settings");
+    const config = await getService("settings").getConfig();
 
     if (config !== null) ctx.send(config);
     else ctx.send(defaultSettings);
@@ -25,15 +23,10 @@ export default ({ strapi }: { strapi: Strapi }) => ({
       return;
     }
 
-    await strapi
-      .store({
-        type: "plugin",
-        name: name,
-      })
-      .set({
-        key: "settings",
-        value: newSettings,
-      });
+    await getCoreStore().set({
+      key: "settings",
+      value: newSettings,
+    });
 
     ctx.send({ ok: true });
   },

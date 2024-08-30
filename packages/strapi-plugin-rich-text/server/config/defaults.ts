@@ -1,6 +1,6 @@
 import { Settings } from "../../types/settings";
 
-export default {
+const defaultSettings: Settings = {
   headings: ["h1", "h2", "h3", "h4", "h4", "h5", "h6"],
   bold: true,
   italic: true,
@@ -43,4 +43,6 @@ export default {
   /*   contentBlocks: {
     types: "info,tips,quote,note",
   }, */
-} satisfies Settings;
+};
+
+export default defaultSettings;
