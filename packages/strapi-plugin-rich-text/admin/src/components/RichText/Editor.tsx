@@ -52,9 +52,13 @@ const CustomOrderedList = OrderedList.extend({
   },
 });
 
+const JSON_PREFIX = /"type":"doc"/;
 const OUTPUT_PREFIX = "<!--strapi-plugin-rich-text-output-->";
+
 const removeOutputPrefix = (value: string) => value.replace(OUTPUT_PREFIX, "");
-export const isRichText = (value: string) => value.startsWith(OUTPUT_PREFIX);
+
+export const isHTMLText = (value: string) => value.startsWith(OUTPUT_PREFIX);
+export const isJSONText = (value: string) => JSON_PREFIX.test(value);
 
 interface EditorProps {
   initialContent: string;
@@ -172,15 +176,12 @@ export default function Editor({
       Gapcursor,
       History,
     ].filter((item) => item !== null),
-    content: removeOutputPrefix(initialContent),
+    content: isJSONText(initialContent)
+      ? JSON.parse(initialContent)
+      : removeOutputPrefix(initialContent),
     onUpdate: ({ editor }) => {
       if (settings.other.saveJson) {
-        onChange(
-          JSON.stringify({
-            prefix: "strapi-plugin-rich-text-output",
-            ...editor.getJSON(),
-          })
-        );
+        onChange(JSON.stringify(editor.getJSON()));
       } else {
         onChange(OUTPUT_PREFIX + editor.getHTML());
       }

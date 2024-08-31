@@ -12,7 +12,7 @@ import { createHTMLFromMarkdown } from "../../lib/markdown";
 import { getSettings } from "../../utils/api";
 import { Settings } from "../../../../types/settings";
 
-import Editor, { isRichText } from "./Editor";
+import Editor, { isHTMLText, isJSONText } from "./Editor";
 
 interface RichTextProps {
   error: string;
@@ -64,7 +64,9 @@ export default function RichText({
 
   const content = useMemo(() => {
     if (value) {
-      return isRichText(value) ? value : createHTMLFromMarkdown(value);
+      return isHTMLText(value) || isJSONText(value)
+        ? value
+        : createHTMLFromMarkdown(value);
     } else {
       return "";
     }
