@@ -23,7 +23,6 @@ const defaultSettings: Settings = {
     autolink: false,
     openOnClick: false,
     linkOnPaste: true,
-    relAttribute: false,
     HTMLAttributes: {
       rel: "",
     },

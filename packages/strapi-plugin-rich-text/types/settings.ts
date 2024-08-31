@@ -21,7 +21,6 @@ type Settings = {
     autolink: boolean;
     openOnClick: boolean;
     linkOnPaste: boolean;
-    relAttribute: boolean;
     HTMLAttributes: {
       rel: string;
     };

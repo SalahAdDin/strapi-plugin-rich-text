@@ -10,6 +10,14 @@ export default {
       throw new Error("headings must be an array of strings");
     }
 
+    if (typeof config.abbreviation !== "boolean") {
+      throw new Error("abbreviation must be a boolean");
+    }
+
+    if (typeof config.alert !== "boolean") {
+      throw new Error("alert must be a boolean");
+    }
+
     if (typeof config.bold !== "boolean") {
       throw new Error("bold must be a boolean");
     }
@@ -79,7 +87,6 @@ export default {
       typeof config.links.autolink !== "boolean" ||
       typeof config.links.openOnClick !== "boolean" ||
       typeof config.links.linkOnPaste !== "boolean" ||
-      typeof config.links.relAttribute !== "boolean" ||
       typeof config.links.HTMLAttributes !== "object" ||
       typeof config.links.HTMLAttributes.rel !== "string"
     ) {
