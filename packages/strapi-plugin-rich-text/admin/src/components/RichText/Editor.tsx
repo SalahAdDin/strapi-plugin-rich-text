@@ -4,7 +4,7 @@ import { Bold } from "@tiptap/extension-bold";
 import { BulletList } from "@tiptap/extension-bullet-list";
 import { CharacterCount } from "@tiptap/extension-character-count";
 import { Code } from "@tiptap/extension-code";
-import { CodeBlock } from "@tiptap/extension-code-block";
+import { CodeBlockLowlight } from "@tiptap/extension-code-block-lowlight";
 import { Color } from "@tiptap/extension-color";
 import { Highlight } from "@tiptap/extension-highlight";
 import { Document } from "@tiptap/extension-document";
@@ -41,8 +41,11 @@ import { StyledEditor } from "./Editor.styles";
 import Toolbar from "./Toolbar";
 
 import Alert from "../../extensions/extension-alert/src";
+import { common, createLowlight } from "lowlight";
 
 const limit = undefined;
+
+const lowlight = createLowlight(common);
 
 const extensions: (Extension | Node | Mark)[] = [
   Abbr,
@@ -55,7 +58,9 @@ const extensions: (Extension | Node | Mark)[] = [
     limit,
   }),
   Code,
-  CodeBlock,
+  CodeBlockLowlight.configure({
+    lowlight,
+  }),
   Color,
   Document,
   Dropcursor,
