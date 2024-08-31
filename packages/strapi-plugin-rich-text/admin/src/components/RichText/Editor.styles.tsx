@@ -136,9 +136,16 @@ export const StyledEditor = styled("div")`
       text-decoration-skip-ink: none;
     }
 
+    code {
+      background: ${({ theme }) => theme.colors.neutral100};
+      font-family: monospace;
+      font-size: 0.8rem;
+      padding: 0.25rem 0.5rem;
+    }
+
     pre {
-      background: #0d0d0d;
-      color: #fff;
+      background: ${({ theme }) => theme.colors.neutral1000};
+      color: ${({ theme }) => theme.colors.neutral0};
       font-family: monospace;
       padding: 0.75rem 1rem;
       border-radius: 0.5rem;
