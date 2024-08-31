@@ -18,6 +18,7 @@ import {
 import { useIntl } from "react-intl";
 
 import { rgbaToHex, rgbStringToRgba, validHex } from "../../lib/color";
+import { Settings } from "../../../../types/settings";
 
 import BlockTypeSelect from "./Components/BlockTypeSelect";
 import ColorPickerPopover from "./Components/ColorPickerPopover";
@@ -33,9 +34,10 @@ import { StyledToolbar } from "./Toolbar.styles";
 
 interface ToolbarProps {
   editor: Editor | null;
+  settings: Settings;
 }
 
-export default function Toolbar({ editor }: ToolbarProps) {
+export default function Toolbar({ editor, settings }: ToolbarProps) {
   const colorSourceRef = useRef(null);
   const highlightSourceRef = useRef(null!);
   const [openDialog, setOpenDialog] = useState<
@@ -56,7 +58,7 @@ export default function Toolbar({ editor }: ToolbarProps) {
           <Flex justifyContent="space-between">
             <Flex style={{ flexWrap: "wrap", gap: "8px" }}>
               <Box>
-                <BlockTypeSelect editor={editor} />
+                <BlockTypeSelect editor={editor} settings={settings} />
               </Box>
               <IconButtonGroup>
                 <IconButton

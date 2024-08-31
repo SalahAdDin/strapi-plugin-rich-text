@@ -1,7 +1,9 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Stack } from "@strapi/design-system/Stack";
 import { Box } from "@strapi/design-system/Box";
+import { Flex } from "@strapi/design-system/Flex";
 import { Field, FieldLabel } from "@strapi/design-system/Field";
+import { Loader } from "@strapi/design-system/Loader";
 import { Typography } from "@strapi/design-system/Typography";
 import { useIntl } from "react-intl";
 import { useQuery } from "react-query";
@@ -60,13 +62,6 @@ export default function RichText({
   const [shouldMountEditor, setShouldMountEditor] = useState(false);
   const { formatMessage } = useIntl();
 
-  const { data: settings, isLoading } = useQuery<Settings>(
-    "settings",
-    getSettings
-  );
-
-  if (isLoading || settings === undefined) return null;
-
   const content = useMemo(() => {
     if (value) {
       return isRichText(value) ? value : createHTMLFromMarkdown(value);
@@ -74,6 +69,11 @@ export default function RichText({
       return "";
     }
   }, [value]);
+
+  const { data: settings, isLoading } = useQuery<Settings>(
+    "settings",
+    getSettings
+  );
 
   const handleChange = useCallback(
     (value: string) => {
@@ -91,6 +91,31 @@ export default function RichText({
   useEffect(() => {
     setShouldMountEditor(true);
   }, []);
+
+  if (isLoading) {
+    return (
+      <Field required={required}>
+        <Stack spacing={1}>
+          <Box>
+            <FieldLabel action={labelAction}>
+              {formatMessage(intlLabel)}
+            </FieldLabel>
+          </Box>
+
+          <Flex justifyContent="center" alignItems="center">
+            <Box>
+              <Loader>
+                {formatMessage({
+                  id: "rich-text.editor.loading-content",
+                  defaultMessage: "Loading editor...",
+                })}
+              </Loader>
+            </Box>
+          </Flex>
+        </Stack>
+      </Field>
+    );
+  }
 
   return (
     <Field required={required}>

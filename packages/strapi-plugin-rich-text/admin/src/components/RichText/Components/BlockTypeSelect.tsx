@@ -2,8 +2,14 @@ import { Select, Option } from "@strapi/design-system/Select";
 import { Editor } from "@tiptap/react";
 import { useState, useCallback, useEffect } from "react";
 import { useIntl } from "react-intl";
+import { Settings } from "../../../../../types/settings";
 
-export default function BlockTypeSelect({ editor }: { editor: Editor }) {
+type BlockTypeSelectProps = { editor: Editor; settings: Settings };
+
+export default function BlockTypeSelect({
+  editor,
+  settings,
+}: BlockTypeSelectProps) {
   const [selectedType, setSelectedType] = useState<string>("paragraph");
 
   const { formatMessage } = useIntl();

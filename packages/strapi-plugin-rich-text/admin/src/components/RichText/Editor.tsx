@@ -70,8 +70,8 @@ export default function Editor({
       Document,
 
       // Tools
-      Abbr,
-      Alert,
+      settings.abbreviation ? Abbr : null,
+      settings.alert ? Alert : null,
       settings.blockquote ? Blockquote : null,
       settings.code ? Code : null,
       settings.code ? CodeBlock : null,
@@ -176,8 +176,8 @@ export default function Editor({
 
   return (
     <StyledEditor data-plugin-rich-text-editor>
-      <Toolbar editor={editor} />
-      {editor && <AlertToolbar editor={editor} />}
+      <Toolbar editor={editor} settings={settings} />
+      {settings.alert && editor && <AlertToolbar editor={editor} />}
       {settings.table && editor && <TableToolbar editor={editor} />}
       <EditorContent editor={editor} />
       <CountDisplay
