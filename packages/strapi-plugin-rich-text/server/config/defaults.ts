@@ -2,6 +2,8 @@ import { Settings } from "../../types/settings";
 
 const defaultSettings: Settings = {
   headings: ["h1", "h2", "h3", "h4", "h4", "h5", "h6"],
+  abbreviation: false,
+  alert: false,
   bold: true,
   italic: true,
   strikethrough: true,

@@ -1,5 +1,7 @@
 type Settings = {
-  headings: string[];
+  headings: Array<string>;
+  abbreviation: boolean;
+  alert: boolean;
   bold: boolean;
   italic: boolean;
   strikethrough: boolean;
@@ -8,8 +10,8 @@ type Settings = {
   blockquote: boolean;
   color: boolean;
   highlight: boolean;
-  align: string[];
-  lists: string[];
+  align: Array<string>;
+  lists: Array<string>;
   disableOrderedListShorthand: boolean;
   table: boolean;
   hardbreak: boolean;
