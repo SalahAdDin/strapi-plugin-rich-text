@@ -1,4 +1,4 @@
-import { EditorContent, Extension, Mark, Node, useEditor } from "@tiptap/react";
+import { Attributes, EditorContent, useEditor } from "@tiptap/react";
 import { Blockquote } from "@tiptap/extension-blockquote";
 import { Bold } from "@tiptap/extension-bold";
 import { BulletList } from "@tiptap/extension-bullet-list";
@@ -32,64 +32,21 @@ import { Text } from "@tiptap/extension-text";
 import { Underline } from "@tiptap/extension-underline";
 import { Youtube } from "@tiptap/extension-youtube";
 
-import Abbr from "../../extensions/extension-abbr";
-
 import AlertToolbar from "./Components/AlertToolbar";
 import TableToolbar from "./Components/TableToolbar";
 import CountDisplay from "./CountDisplay";
 import { StyledEditor } from "./Editor.styles";
 import Toolbar from "./Toolbar";
 
+import Abbr from "../../extensions/extension-abbr";
 import Alert from "../../extensions/extension-alert/src";
+import type { Settings } from "../../../../types/settings";
 
-const limit = undefined;
-
-const extensions: (Extension | Node | Mark)[] = [
-  Abbr,
-  Alert,
-  Blockquote,
-  Bold,
-  FloatingMenu,
-  BulletList,
-  CharacterCount.configure({
-    limit,
-  }),
-  Code,
-  CodeBlock,
-  Color,
-  Document,
-  Dropcursor,
-  Gapcursor,
-  HardBreak,
-  Heading,
-  Highlight.configure({ multicolor: true }),
-  History,
-  HorizontalRule,
-  Image,
-  Italic,
-  Link,
-  ListItem,
-  OrderedList,
-  Paragraph,
-  Strike,
-  Table.configure({
-    allowTableNodeSelection: true,
-  }),
-  TableCell,
-  TableHeader,
-  TableRow,
-  TextAlign.configure({
-    types: ["heading", "paragraph"],
-  }),
-  TextStyle,
-  Text,
-  Underline,
-  Youtube.configure({
-    modestBranding: true,
-    width: undefined,
-    height: undefined,
-  }),
-];
+const CustomOrderedList = OrderedList.extend({
+  addInputRules() {
+    return [];
+  },
+});
 
 const OUTPUT_PREFIX = "<!--strapi-plugin-rich-text-output-->";
 const removeOutputPrefix = (value: string) => value.replace(OUTPUT_PREFIX, "");
@@ -99,12 +56,114 @@ interface EditorProps {
   initialContent: string;
   onChange: (value: string) => void;
   placeholder: string | null;
+  settings: Settings;
   disabled: boolean;
 }
 
-export default function Editor({ initialContent, onChange }: EditorProps) {
+export default function Editor({
+  initialContent,
+  onChange,
+  settings,
+}: EditorProps) {
   const editor = useEditor({
-    extensions,
+    extensions: [
+      Document,
+
+      // Tools
+      Abbr,
+      Alert,
+      settings.blockquote ? Blockquote : null,
+      settings.code ? Code : null,
+      settings.code ? CodeBlock : null,
+      settings.hardbreak ? HardBreak : null,
+      settings.horizontal ? HorizontalRule : null,
+
+      // List
+      BulletList,
+      ListItem,
+      settings.disableOrderedListShorthand ? CustomOrderedList : OrderedList,
+
+      // Text
+      settings.color ? Color : null,
+      settings.highlight ? Highlight.configure({ multicolor: true }) : null,
+      Heading,
+      Bold,
+      Strike,
+      Italic,
+      Paragraph,
+      Text,
+      TextAlign.configure({
+        types: ["heading", "paragraph"],
+      }),
+      TextStyle,
+      Underline,
+
+      // Links
+      settings.links.enabled
+        ? Link.configure({
+            autolink: settings.links.autolink,
+            openOnClick: settings.links.openOnClick,
+            linkOnPaste: settings.links.linkOnPaste,
+            HTMLAttributes: {
+              rel: settings.links.HTMLAttributes.rel,
+            },
+          })
+        : null,
+
+      // Media
+      settings.image.enabled
+        ? Image.extend({
+            addAttributes() {
+              return {
+                ...this.parent?.(),
+                width: { default: null },
+                height: { default: null },
+                loading: { default: null },
+                renderHTML: (attributes: Attributes) => {
+                  return {
+                    width: attributes.width,
+                    height: attributes.height,
+                    loading: attributes.loading,
+                  };
+                },
+              };
+            },
+          }).configure({
+            inline: settings.image.inline,
+            allowBase64: settings.image.allowBase64,
+          })
+        : null,
+
+      // Table
+      settings.table
+        ? Table.configure({
+            allowTableNodeSelection: true,
+          })
+        : null,
+      settings.table ? TableRow : null,
+      settings.table ? TableCell : null,
+      settings.table ? TableHeader : null,
+
+      settings.youtube.enabled
+        ? Youtube.configure({
+            inline: false,
+            modestBranding: true,
+            width: undefined,
+            height: undefined,
+          })
+        : null,
+
+      // System
+      settings.other && settings.other.wordcount
+        ? CharacterCount.configure({
+            limit: settings.other.characterLimit,
+          })
+        : null,
+      Dropcursor,
+      FloatingMenu,
+      Gapcursor,
+      History,
+    ].filter((item) => item !== null),
     content: removeOutputPrefix(initialContent),
     onUpdate: ({ editor }) => {
       onChange(OUTPUT_PREFIX + editor.getHTML());
@@ -119,12 +178,12 @@ export default function Editor({ initialContent, onChange }: EditorProps) {
     <StyledEditor data-plugin-rich-text-editor>
       <Toolbar editor={editor} />
       {editor && <AlertToolbar editor={editor} />}
-      {editor && <TableToolbar editor={editor} />}
+      {settings.table && editor && <TableToolbar editor={editor} />}
       <EditorContent editor={editor} />
       <CountDisplay
         characters={editor.storage.characterCount.characters()}
         words={editor.storage.characterCount.words()}
-        limit={limit}
+        limit={settings.other.characterLimit}
       />
     </StyledEditor>
   );

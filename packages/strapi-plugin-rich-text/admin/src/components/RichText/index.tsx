@@ -4,9 +4,13 @@ import { Box } from "@strapi/design-system/Box";
 import { Field, FieldLabel } from "@strapi/design-system/Field";
 import { Typography } from "@strapi/design-system/Typography";
 import { useIntl } from "react-intl";
+import { useQuery } from "react-query";
+
+import { createHTMLFromMarkdown } from "../../lib/markdown";
+import { getSettings } from "../../utils/api";
+import { Settings } from "../../../../types/settings";
 
 import Editor, { isRichText } from "./Editor";
-import { createHTMLFromMarkdown } from "../../lib/markdown";
 
 interface RichTextProps {
   error: string;
@@ -53,8 +57,15 @@ export default function RichText({
   disabled,
   error,
 }: RichTextProps) {
-  const { formatMessage } = useIntl();
   const [shouldMountEditor, setShouldMountEditor] = useState(false);
+  const { formatMessage } = useIntl();
+
+  const { data: settings, isLoading } = useQuery<Settings>(
+    "settings",
+    getSettings
+  );
+
+  if (isLoading || settings === undefined) return null;
 
   const content = useMemo(() => {
     if (value) {
@@ -95,6 +106,7 @@ export default function RichText({
             onChange={handleChange}
             placeholder={placeholder}
             disabled={disabled}
+            settings={settings}
           />
         )}
         {error && (
