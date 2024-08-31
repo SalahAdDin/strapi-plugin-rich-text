@@ -4,7 +4,7 @@ import { Bold } from "@tiptap/extension-bold";
 import { BulletList } from "@tiptap/extension-bullet-list";
 import { CharacterCount } from "@tiptap/extension-character-count";
 import { Code } from "@tiptap/extension-code";
-import { CodeBlock } from "@tiptap/extension-code-block";
+import { CodeBlockLowlight } from "@tiptap/extension-code-block-lowlight";
 import { Color } from "@tiptap/extension-color";
 import { Highlight } from "@tiptap/extension-highlight";
 import { Document } from "@tiptap/extension-document";
@@ -42,6 +42,10 @@ import Abbr from "../../extensions/extension-abbr";
 import Alert from "../../extensions/extension-alert/src";
 import type { Settings } from "../../../../types/settings";
 
+import { common, createLowlight } from "lowlight";
+
+const lowlight = createLowlight(common);
+
 const CustomOrderedList = OrderedList.extend({
   addInputRules() {
     return [];
@@ -74,7 +78,11 @@ export default function Editor({
       settings.alert ? Alert : null,
       settings.blockquote ? Blockquote : null,
       settings.code ? Code : null,
-      settings.code ? CodeBlock : null,
+      settings.code
+        ? CodeBlockLowlight.configure({
+            lowlight,
+          })
+        : null,
       settings.hardbreak ? HardBreak : null,
       settings.horizontal ? HorizontalRule : null,
 

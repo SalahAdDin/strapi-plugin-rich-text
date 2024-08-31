@@ -7,6 +7,7 @@ import {
   ArrowLeft,
   ArrowRight,
   Bold,
+  Code,
   Italic,
   Link,
   Minus,
@@ -99,6 +100,16 @@ export default function Toolbar({ editor, settings }: ToolbarProps) {
                   onClick={() => editor.chain().focus().toggleStrike().run()}
                   disabled={!editor.can().chain().focus().toggleStrike().run()}
                   className={editor.isActive("strike") ? "is-active" : ""}
+                />
+                <IconButton
+                  icon={<Code />}
+                  label={formatMessage({
+                    id: "rich-text.editor.toolbar.button.code",
+                    defaultMessage: "Code",
+                  })}
+                  onClick={() => editor.chain().focus().toggleCode().run()}
+                  disabled={!editor.can().chain().focus().toggleCode().run()}
+                  className={editor.isActive("code") ? "is-active" : ""}
                 />
                 <IconButton
                   ref={colorSourceRef}

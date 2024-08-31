@@ -49,6 +49,9 @@ export default function BlockTypeSelect({
       case "paragraph":
         editor.chain().focus().setParagraph().run();
         break;
+      case "codeBlock":
+        editor.chain().focus().toggleCodeBlock().run();
+        break;
     }
 
     setTimeout(() => {
@@ -65,6 +68,7 @@ export default function BlockTypeSelect({
     if (editor.isActive("heading", { level: 6 })) setSelectedType("h6");
     if (editor.isActive("alert")) setSelectedType("alert");
     if (editor.isActive("paragraph")) setSelectedType("paragraph");
+    if (editor.isActive("codeBlock")) setSelectedType("codeBlock");
     if (editor.isActive("blockquote")) setSelectedType("blockquote");
     if (editor.isActive("orderedList")) setSelectedType("orderedList");
     if (editor.isActive("bulletList")) setSelectedType("bulletList");
@@ -128,6 +132,12 @@ export default function BlockTypeSelect({
         {formatMessage({
           id: "rich-text.editor.toolbar.select.quote",
           defaultMessage: "Quote",
+        })}
+      </Option>
+      <Option value={"codeBlock"}>
+        {formatMessage({
+          id: "rich-text.editor.toolbar.select.code-block",
+          defaultMessage: "Code Block",
         })}
       </Option>
       <Option value={"orderedList"}>
