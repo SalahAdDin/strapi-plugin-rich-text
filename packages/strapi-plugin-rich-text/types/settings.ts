@@ -1,5 +1,13 @@
+const HEADINGS = ["h1", "h2", "h3", "h4", "h4", "h5", "h6"] as const;
+const TEXT_ALIGN = ["left", "center", "right"] as const;
+const LIST_TYPE = ["ol", "ul"] as const;
+
+type Headings = (typeof HEADINGS)[number];
+type TextAlign = (typeof TEXT_ALIGN)[number];
+type ListType = (typeof LIST_TYPE)[number];
+
 type Settings = {
-  headings: Array<string>;
+  headings: Array<Headings>;
   abbreviation: boolean;
   alert: boolean;
   bold: boolean;
@@ -10,8 +18,8 @@ type Settings = {
   blockquote: boolean;
   color: boolean;
   highlight: boolean;
-  align: Array<string>;
-  lists: Array<string>;
+  align: Array<TextAlign>;
+  lists: Array<ListType>;
   disableOrderedListShorthand: boolean;
   table: boolean;
   hardbreak: boolean;
