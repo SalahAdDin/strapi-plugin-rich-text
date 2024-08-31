@@ -98,60 +98,94 @@ export default function BlockTypeSelect({
           defaultMessage: "Paragraph",
         })}
       </Option>
-      <Option value={"h1"}>
-        {formatMessage({
-          id: "rich-text.editor.toolbar.select.heading-1",
-          defaultMessage: "Heading 1",
-        })}
-      </Option>
-      <Option value={"h2"}>
-        {formatMessage({
-          id: "rich-text.editor.toolbar.select.heading-2",
-          defaultMessage: "Heading 2",
-        })}
-      </Option>
-      <Option value={"h3"}>
-        {formatMessage({
-          id: "rich-text.editor.toolbar.select.heading-3",
-          defaultMessage: "Heading 3",
-        })}
-      </Option>
-      <Option value={"h4"}>
-        {formatMessage({
-          id: "rich-text.editor.toolbar.select.heading-4",
-          defaultMessage: "Heading 4",
-        })}
-      </Option>
-      <Option value={"alert"}>
-        {formatMessage({
-          id: "rich-text.editor.toolbar.select.alert",
-          defaultMessage: "Alert",
-        })}
-      </Option>
-      <Option value={"blockquote"}>
-        {formatMessage({
-          id: "rich-text.editor.toolbar.select.quote",
-          defaultMessage: "Quote",
-        })}
-      </Option>
-      <Option value={"codeBlock"}>
-        {formatMessage({
-          id: "rich-text.editor.toolbar.select.code-block",
-          defaultMessage: "Code Block",
-        })}
-      </Option>
-      <Option value={"orderedList"}>
-        {formatMessage({
-          id: "rich-text.editor.toolbar.select.ordered-list",
-          defaultMessage: "Ordered list",
-        })}
-      </Option>
-      <Option value={"bulletList"}>
-        {formatMessage({
-          id: "rich-text.editor.toolbar.select.bullet-list",
-          defaultMessage: "Bullet list",
-        })}
-      </Option>
+      {settings.headings.includes("h1") ? (
+        <Option value={"h1"}>
+          {formatMessage({
+            id: "rich-text.editor.toolbar.select.heading-1",
+            defaultMessage: "Heading 1",
+          })}
+        </Option>
+      ) : null}
+      {settings.headings.includes("h2") ? (
+        <Option value={"h2"}>
+          {formatMessage({
+            id: "rich-text.editor.toolbar.select.heading-2",
+            defaultMessage: "Heading 2",
+          })}
+        </Option>
+      ) : null}
+      {settings.headings.includes("h3") ? (
+        <Option value={"h3"}>
+          {formatMessage({
+            id: "rich-text.editor.toolbar.select.heading-3",
+            defaultMessage: "Heading 3",
+          })}
+        </Option>
+      ) : null}
+      {settings.headings.includes("h4") ? (
+        <Option value={"h4"}>
+          {formatMessage({
+            id: "rich-text.editor.toolbar.select.heading-4",
+            defaultMessage: "Heading 4",
+          })}
+        </Option>
+      ) : null}
+      {settings.headings.includes("h5") ? (
+        <Option value={"h5"}>
+          {formatMessage({
+            id: "rich-text.editor.toolbar.select.heading-5",
+            defaultMessage: "Heading 5",
+          })}
+        </Option>
+      ) : null}
+      {settings.headings.includes("h6") ? (
+        <Option value={"h6"}>
+          {formatMessage({
+            id: "rich-text.editor.toolbar.select.heading-6",
+            defaultMessage: "Heading 6",
+          })}
+        </Option>
+      ) : null}
+      {settings.alert ? (
+        <Option value={"alert"}>
+          {formatMessage({
+            id: "rich-text.editor.toolbar.select.alert",
+            defaultMessage: "Alert",
+          })}
+        </Option>
+      ) : null}
+      {settings.code ? (
+        <Option value={"codeBlock"}>
+          {formatMessage({
+            id: "rich-text.editor.toolbar.select.code-block",
+            defaultMessage: "Code Block",
+          })}
+        </Option>
+      ) : null}
+      {settings.blockquote ? (
+        <Option value={"blockquote"}>
+          {formatMessage({
+            id: "rich-text.editor.toolbar.select.quote",
+            defaultMessage: "Quote",
+          })}
+        </Option>
+      ) : null}
+      {settings.lists.includes("ol") ? (
+        <Option value={"orderedList"}>
+          {formatMessage({
+            id: "rich-text.editor.toolbar.select.ordered-list",
+            defaultMessage: "Ordered list",
+          })}
+        </Option>
+      ) : null}
+      {settings.lists.includes("ul") ? (
+        <Option value={"bulletList"}>
+          {formatMessage({
+            id: "rich-text.editor.toolbar.select.bullet-list",
+            defaultMessage: "Bullet list",
+          })}
+        </Option>
+      ) : null}
     </Select>
   );
 }
