@@ -174,7 +174,16 @@ export default function Editor({
     ].filter((item) => item !== null),
     content: removeOutputPrefix(initialContent),
     onUpdate: ({ editor }) => {
-      onChange(OUTPUT_PREFIX + editor.getHTML());
+      if (settings.other.saveJson) {
+        onChange(
+          JSON.stringify({
+            prefix: "strapi-plugin-rich-text-output",
+            ...editor.getJSON(),
+          })
+        );
+      } else {
+        onChange(OUTPUT_PREFIX + editor.getHTML());
+      }
     },
   });
 
