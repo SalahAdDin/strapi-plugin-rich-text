@@ -37,6 +37,7 @@
   "editor.toolbar.select.heading-4": "Encabezado 4",
   "editor.toolbar.select.heading-5": "Encabezado 5",
   "editor.toolbar.select.heading-6": "Encabezado 6",
+  "editor.toolbar.select.code-block": "Bloque de Código",
   "editor.toolbar.select.quote": "Cita",
   "editor.toolbar.select.ordered-list": "Lista Ordenada",
   "editor.toolbar.select.bullet-list": "Lista de Viñetas",

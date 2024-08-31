@@ -37,6 +37,7 @@
   "editor.toolbar.select.heading-4": "Heading 4",
   "editor.toolbar.select.heading-5": "Heading 5",
   "editor.toolbar.select.heading-6": "Heading 6",
+  "editor.toolbar.select.code-block": "Code Block",
   "editor.toolbar.select.quote": "Quote",
   "editor.toolbar.select.ordered-list": "Ordered List",
   "editor.toolbar.select.bullet-list": "Bullet List",
