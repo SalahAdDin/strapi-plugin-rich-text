@@ -11,6 +11,7 @@
   "editor.toolbar.button.abbreviation": "Abbreviation",
   "editor.toolbar.button.bold": "Bold",
   "editor.toolbar.button.color": "Color",
+  "editor.toolbar.button.code": "Code",
   "editor.toolbar.button.highlight": "Highlight",
   "editor.toolbar.button.italic": "Italic",
   "editor.toolbar.button.underline": "Underline",
