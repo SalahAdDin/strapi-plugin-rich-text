@@ -1,13 +1,17 @@
 const DeleteTableIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
     fill="none"
     stroke="currentColor"
-    viewBox="0 0 24 24"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    stroke-width="2"
     className="extra-icon"
   >
-    <rect width="18" height="18" x="3" y="3" rx="2" ry="2" />
-    <path d="M3 9h18M3 15h18M9 3v18M15 3v18M2 2l20 20" />
+    <path stroke="none" d="M0 0h24v24H0z" />
+    <path d="M7 3h12a2 2 0 0 1 2 2v12m-.585 3.413A1.994 1.994 0 0 1 19 21H5a2 2 0 0 1-2-2V5c0-.55.223-1.05.583-1.412M3 10h7m4 0h7M10 3v3m0 4v11M3 3l18 18" />
   </svg>
 );
 
