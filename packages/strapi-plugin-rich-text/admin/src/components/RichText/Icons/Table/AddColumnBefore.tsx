@@ -1,11 +1,17 @@
 const AddColumnBeforeIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
     fill="none"
     stroke="currentColor"
-    viewBox="0 0 24 24"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    stroke-width="2"
+    className="extra-icon"
   >
-    <path d="M10 5v14m4-14v14M4 12h6M2 10v4M4 10v4" />
+    <path stroke="none" d="M0 0h24v24H0z" />
+    <path d="M14 4h4a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1zM5 12h4M7 10v4" />
   </svg>
 );
 

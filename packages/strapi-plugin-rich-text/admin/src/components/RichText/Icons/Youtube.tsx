@@ -1,14 +1,18 @@
 const Youtube = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width="1rem"
-    height="1rem"
-    viewBox="0 0 24 24"
+    width="24"
+    height="24"
     fill="none"
+    stroke="currentColor"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    stroke-width="2"
     className="extra-icon"
   >
-    <path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17" />
-    <path id="bulb" d="m10 15 5-3-5-3z" />
+    <path stroke="none" d="M0 0h24v24H0z" />
+    <path d="M2 8a4 4 0 0 1 4-4h12a4 4 0 0 1 4 4v8a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z" />
+    <path d="m10 9 5 3-5 3z" />
   </svg>
 );
 
