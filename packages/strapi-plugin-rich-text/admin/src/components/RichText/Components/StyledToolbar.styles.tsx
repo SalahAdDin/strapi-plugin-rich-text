@@ -3,7 +3,6 @@ import styled from "styled-components";
 export const StyledToolbar = styled("div")`
   .is-active {
     background: ${({ theme }) => theme.colors.primary200};
-    color: ${({ theme }) => theme.colors.neutral0};
   }
 
   button {
@@ -12,12 +11,13 @@ export const StyledToolbar = styled("div")`
       width: 100%;
       flex-shrink: 0;
     }
+
     svg.extra-icon {
       height: 125%;
       width: 125%;
 
-      #bulb {
-        fill: ${({ theme }) => theme.colors.neutral100} !important;
+      path {
+        fill: transparent !important;
       }
     }
   }
