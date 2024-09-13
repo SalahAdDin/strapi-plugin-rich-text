@@ -37,9 +37,6 @@ import AlignCenter from "./Icons/AlignCenter";
 import AlignRight from "./Icons/AlignRight";
 import NewTableIcon from "./Icons/Table/NewTable";
 import PhotoBitcoin from "./Icons/Media/PhotoBitcoin";
-import Movie from "./Icons/Media/Movie";
-import Music from "./Icons/Media/Music";
-import PaperClip from "./Icons/Media/PaperClip";
 import Photo from "./Icons/Media/Photo";
 import { StyledToolbar } from "./Toolbar.styles";
 
@@ -254,13 +251,6 @@ export default function Toolbar({ editor, settings }: ToolbarProps) {
               </IconButtonGroup>
 
               <IconButtonGroup>
-                <IconButton
-                  icon={<Music />}
-                  label={formatMessage({
-                    id: "rich-text.editor.toolbar.button.media-audio",
-                    defaultMessage: "Audio",
-                  })}
-                />
                 {settings.image.enabled ? (
                   <IconButton
                     icon={<Photo />}
@@ -302,20 +292,6 @@ export default function Toolbar({ editor, settings }: ToolbarProps) {
                     }}
                   />
                 ) : null}
-                <IconButton
-                  icon={<PaperClip />}
-                  label={formatMessage({
-                    id: "rich-text.editor.toolbar.button.media-file",
-                    defaultMessage: "File",
-                  })}
-                />
-                <IconButton
-                  icon={<Movie />}
-                  label={formatMessage({
-                    id: "rich-text.editor.toolbar.button.media-video",
-                    defaultMessage: "Movie",
-                  })}
-                />
               </IconButtonGroup>
 
               <IconButtonGroup>
