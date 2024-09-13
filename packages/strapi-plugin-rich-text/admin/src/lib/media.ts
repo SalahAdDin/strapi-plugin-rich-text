@@ -1,8 +1,8 @@
-import { TipTapAsset } from "../types";
+import { Asset } from "../types";
 
-export const getUpdatedImage = (asset: TipTapAsset) => ({
+export const getUpdatedImage = (asset: Asset) => ({
   src: asset.url,
-  alt: asset.alt,
+  alt: asset.alternativeText,
   ...(asset.width && { width: asset.width }),
   ...(asset.height && { height: asset.height }),
   ...((asset.url?.includes("lazy") || asset.caption === "lazy") && {
