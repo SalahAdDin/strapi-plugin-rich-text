@@ -2,11 +2,12 @@ import { Editor } from "@tiptap/react";
 
 const ALLOWED_TYPES = ["files", "images", "videos", "audios"] as const;
 const DIALOG_TYPES = [
+  "abbr",
+  "base64Image",
   "color",
   "highlight",
   "insertLink",
   "insertYouTube",
-  "abbr",
 ] as const;
 
 type AllowedTypes = (typeof ALLOWED_TYPES)[number];

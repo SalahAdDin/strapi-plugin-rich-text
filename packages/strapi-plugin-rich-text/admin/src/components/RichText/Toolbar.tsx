@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
-import { Editor } from "@tiptap/react";
+import { useIntl } from "react-intl";
+
 import { Box } from "@strapi/design-system/Box";
 import { Flex } from "@strapi/design-system/Flex";
 import { IconButton, IconButtonGroup } from "@strapi/design-system/IconButton";
@@ -16,7 +17,7 @@ import {
   StrikeThrough,
   Underline,
 } from "@strapi/icons";
-import { useIntl } from "react-intl";
+import { Editor } from "@tiptap/react";
 
 import { getUpdatedImage } from "../../lib/media";
 import { AllowedTypes, DialogTypes, TipTapAsset } from "../../types";
@@ -26,6 +27,7 @@ import { Settings } from "../../../../types/settings";
 import BlockTypeSelect from "./Components/BlockTypeSelect";
 import ColorPickerPopover from "./Components/ColorPickerPopover";
 import AbbrDialog from "./Dialogs/AbbrDialog";
+import Base64ImageDialog from "./Dialogs/Base64ImageDialog";
 import InsertLinkDialog from "./Dialogs/InsertLinkDialog";
 import InsertYouTubeDialog from "./Dialogs/InsertYouTubeDialog";
 import MediaLibraryDialog from "./Dialogs/MediaLibraryDialog";
@@ -34,6 +36,7 @@ import AlignLeft from "./Icons/AlignLeft";
 import AlignCenter from "./Icons/AlignCenter";
 import AlignRight from "./Icons/AlignRight";
 import NewTableIcon from "./Icons/Table/NewTable";
+import PhotoBitcoin from "./Icons/Media/PhotoBitcoin";
 import Movie from "./Icons/Media/Movie";
 import Music from "./Icons/Media/Music";
 import PaperClip from "./Icons/Media/PaperClip";
@@ -53,6 +56,7 @@ export default function Toolbar({ editor, settings }: ToolbarProps) {
   const [mediaType, setMediaType] = useState<Array<AllowedTypes> | undefined>();
   const [forceInsert, setForceInsert] = useState(false);
   const [color, setColor] = useState<string>();
+  const [base64Image, setBase64Image] = useState("");
 
   const { formatMessage } = useIntl();
 
@@ -274,6 +278,30 @@ export default function Toolbar({ editor, settings }: ToolbarProps) {
                     }
                   />
                 ) : null}
+                {settings.image.allowBase64 ? (
+                  <IconButton
+                    icon={<PhotoBitcoin />}
+                    label={formatMessage({
+                      id: "rich-text.editor.toolbar.button.media-base-64-image",
+                      defaultMessage: "Base64 Image",
+                    })}
+                    className={
+                      editor.isActive("image") &&
+                      editor.getAttributes("image").src.includes(";base64")
+                        ? "is-active"
+                        : ""
+                    }
+                    onClick={() => {
+                      if (
+                        editor.getAttributes("image").src &&
+                        editor.getAttributes("image").src.includes(";base64")
+                      )
+                        setBase64Image(editor.getAttributes("image").src);
+
+                      setOpenDialog("base64Image");
+                    }}
+                  />
+                ) : null}
                 <IconButton
                   icon={<PaperClip />}
                   label={formatMessage({
@@ -415,6 +443,13 @@ export default function Toolbar({ editor, settings }: ToolbarProps) {
       )}
       {settings.youtube.enabled && openDialog === "insertYouTube" && (
         <InsertYouTubeDialog
+          editor={editor}
+          onExit={() => setOpenDialog(false)}
+        />
+      )}
+      {settings.image.allowBase64 && openDialog === "base64Image" && (
+        <Base64ImageDialog
+          base64Image={base64Image}
           editor={editor}
           onExit={() => setOpenDialog(false)}
         />
