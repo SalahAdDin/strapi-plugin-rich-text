@@ -20,7 +20,7 @@ import {
 import { Editor } from "@tiptap/react";
 
 import { getUpdatedImage } from "../../lib/media";
-import { AllowedTypes, DialogTypes, TipTapAsset } from "../../types";
+import { AllowedTypes, Asset, DialogTypes } from "../../types";
 import { rgbaToHex, rgbStringToRgba, validHex } from "../../lib/color";
 import { Settings } from "../../../../types/settings";
 
@@ -61,8 +61,8 @@ export default function Toolbar({ editor, settings }: ToolbarProps) {
     return null;
   }
 
-  const handleChangeAssets = (assets: Array<TipTapAsset>) => {
-    if (!forceInsert && editor.isActive("image")) {
+  const handleChangeAssets = (assets: Array<Asset>) => {
+    if (!forceInsert) {
       assets.map((asset) => {
         if (asset.mime.includes("image")) {
           editor.chain().focus().setImage(getUpdatedImage(asset)).run();
