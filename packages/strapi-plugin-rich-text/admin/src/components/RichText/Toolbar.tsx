@@ -31,6 +31,7 @@ import AlignLeft from "./Icons/AlignLeft";
 import AlignCenter from "./Icons/AlignCenter";
 import AlignRight from "./Icons/AlignRight";
 import NewTableIcon from "./Icons/Table/NewTable";
+import Photo from "./Icons/Media/Photo";
 import { StyledToolbar } from "./Toolbar.styles";
 
 interface ToolbarProps {
@@ -44,6 +45,7 @@ export default function Toolbar({ editor, settings }: ToolbarProps) {
   const [openDialog, setOpenDialog] = useState<
     "color" | "highlight" | "insertLink" | "insertYouTube" | "abbr" | false
   >(false);
+  const [mediaType, setMediaType] = useState<Array<AllowedTypes> | undefined>();
   const [color, setColor] = useState<string>();
 
   const { formatMessage } = useIntl();
@@ -217,6 +219,26 @@ export default function Toolbar({ editor, settings }: ToolbarProps) {
                     })}
                     onClick={() =>
                       editor.chain().focus().setTextAlign("right").run()
+                    }
+                  />
+                ) : null}
+              </IconButtonGroup>
+
+              <IconButtonGroup>
+                {settings.image.enabled ? (
+                  <IconButton
+                    icon={<Photo />}
+                    label={formatMessage({
+                      id: "rich-text.editor.toolbar.button.media-image",
+                      defaultMessage: "Image",
+                    })}
+                    disabled={!editor.view.state.selection.empty}
+                    onClick={() => setMediaType(["images"])}
+                    className={
+                      editor.isActive("image") &&
+                      !editor.getAttributes("image").src.includes(";base64")
+                        ? "is-active"
+                        : ""
                     }
                   />
                 ) : null}
