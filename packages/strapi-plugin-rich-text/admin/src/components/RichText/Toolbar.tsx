@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
-import { Editor } from "@tiptap/react";
+import { useIntl } from "react-intl";
+
 import { Box } from "@strapi/design-system/Box";
 import { Flex } from "@strapi/design-system/Flex";
 import { IconButton, IconButtonGroup } from "@strapi/design-system/IconButton";
@@ -16,21 +17,27 @@ import {
   StrikeThrough,
   Underline,
 } from "@strapi/icons";
-import { useIntl } from "react-intl";
+import { Editor } from "@tiptap/react";
 
+import { getUpdatedImage } from "../../lib/media";
+import { AllowedTypes, DialogTypes, TipTapAsset } from "../../types";
 import { rgbaToHex, rgbStringToRgba, validHex } from "../../lib/color";
 import { Settings } from "../../../../types/settings";
 
 import BlockTypeSelect from "./Components/BlockTypeSelect";
 import ColorPickerPopover from "./Components/ColorPickerPopover";
 import AbbrDialog from "./Dialogs/AbbrDialog";
+import Base64ImageDialog from "./Dialogs/Base64ImageDialog";
 import InsertLinkDialog from "./Dialogs/InsertLinkDialog";
 import InsertYouTubeDialog from "./Dialogs/InsertYouTubeDialog";
+import MediaLibraryDialog from "./Dialogs/MediaLibraryDialog";
 import Youtube from "./Icons/Youtube";
 import AlignLeft from "./Icons/AlignLeft";
 import AlignCenter from "./Icons/AlignCenter";
 import AlignRight from "./Icons/AlignRight";
 import NewTableIcon from "./Icons/Table/NewTable";
+import PhotoBitcoin from "./Icons/Media/PhotoBitcoin";
+import Photo from "./Icons/Media/Photo";
 import { StyledToolbar } from "./Toolbar.styles";
 
 interface ToolbarProps {
@@ -41,16 +48,37 @@ interface ToolbarProps {
 export default function Toolbar({ editor, settings }: ToolbarProps) {
   const colorSourceRef = useRef(null);
   const highlightSourceRef = useRef(null!);
-  const [openDialog, setOpenDialog] = useState<
-    "color" | "highlight" | "insertLink" | "insertYouTube" | "abbr" | false
-  >(false);
+
+  const [openDialog, setOpenDialog] = useState<DialogTypes | false>(false);
+  const [mediaType, setMediaType] = useState<Array<AllowedTypes> | undefined>();
+  const [forceInsert, setForceInsert] = useState(false);
   const [color, setColor] = useState<string>();
+  const [base64Image, setBase64Image] = useState("");
 
   const { formatMessage } = useIntl();
 
   if (!editor) {
     return null;
   }
+
+  const handleChangeAssets = (assets: Array<TipTapAsset>) => {
+    if (!forceInsert && editor.isActive("image")) {
+      assets.map((asset) => {
+        if (asset.mime.includes("image")) {
+          editor.chain().focus().setImage(getUpdatedImage(asset)).run();
+        }
+      });
+    } else {
+      assets.map((asset) => {
+        if (asset.mime.includes("image")) {
+          editor.commands.setImage(getUpdatedImage(asset));
+        }
+      });
+    }
+
+    setForceInsert(false);
+    setMediaType(undefined);
+  };
 
   return (
     <>
@@ -223,6 +251,50 @@ export default function Toolbar({ editor, settings }: ToolbarProps) {
               </IconButtonGroup>
 
               <IconButtonGroup>
+                {settings.image.enabled ? (
+                  <IconButton
+                    icon={<Photo />}
+                    label={formatMessage({
+                      id: "rich-text.editor.toolbar.button.media-image",
+                      defaultMessage: "Image",
+                    })}
+                    disabled={!editor.view.state.selection.empty}
+                    onClick={() => setMediaType(["images"])}
+                    className={
+                      editor.isActive("image") &&
+                      !editor.getAttributes("image").src.includes(";base64")
+                        ? "is-active"
+                        : ""
+                    }
+                  />
+                ) : null}
+                {settings.image.allowBase64 ? (
+                  <IconButton
+                    icon={<PhotoBitcoin />}
+                    label={formatMessage({
+                      id: "rich-text.editor.toolbar.button.media-base-64-image",
+                      defaultMessage: "Base64 Image",
+                    })}
+                    className={
+                      editor.isActive("image") &&
+                      editor.getAttributes("image").src.includes(";base64")
+                        ? "is-active"
+                        : ""
+                    }
+                    onClick={() => {
+                      if (
+                        editor.getAttributes("image").src &&
+                        editor.getAttributes("image").src.includes(";base64")
+                      )
+                        setBase64Image(editor.getAttributes("image").src);
+
+                      setOpenDialog("base64Image");
+                    }}
+                  />
+                ) : null}
+              </IconButtonGroup>
+
+              <IconButtonGroup>
                 {settings.abbreviation ? (
                   <IconButton
                     label={formatMessage({
@@ -351,6 +423,20 @@ export default function Toolbar({ editor, settings }: ToolbarProps) {
           onExit={() => setOpenDialog(false)}
         />
       )}
+      {settings.image.allowBase64 && openDialog === "base64Image" && (
+        <Base64ImageDialog
+          base64Image={base64Image}
+          editor={editor}
+          onExit={() => setOpenDialog(false)}
+        />
+      )}
+
+      <MediaLibraryDialog
+        allowedTypes={mediaType}
+        isOpen={mediaType !== undefined}
+        onChange={handleChangeAssets}
+        onToggle={() => setMediaType(undefined)}
+      />
     </>
   );
 }
