@@ -19,7 +19,7 @@ import {
 import { useIntl } from "react-intl";
 
 import { getUpdatedImage } from "../../lib/media";
-import { AllowedTypes, TipTapAsset } from "../../types";
+import { AllowedTypes, DialogTypes, TipTapAsset } from "../../types";
 import { rgbaToHex, rgbStringToRgba, validHex } from "../../lib/color";
 import { Settings } from "../../../../types/settings";
 
@@ -28,11 +28,15 @@ import ColorPickerPopover from "./Components/ColorPickerPopover";
 import AbbrDialog from "./Dialogs/AbbrDialog";
 import InsertLinkDialog from "./Dialogs/InsertLinkDialog";
 import InsertYouTubeDialog from "./Dialogs/InsertYouTubeDialog";
+import MediaLibraryDialog from "./Dialogs/MediaLibraryDialog";
 import Youtube from "./Icons/Youtube";
 import AlignLeft from "./Icons/AlignLeft";
 import AlignCenter from "./Icons/AlignCenter";
 import AlignRight from "./Icons/AlignRight";
 import NewTableIcon from "./Icons/Table/NewTable";
+import Movie from "./Icons/Media/Movie";
+import Music from "./Icons/Media/Music";
+import PaperClip from "./Icons/Media/PaperClip";
 import Photo from "./Icons/Media/Photo";
 import { StyledToolbar } from "./Toolbar.styles";
 
@@ -45,9 +49,7 @@ export default function Toolbar({ editor, settings }: ToolbarProps) {
   const colorSourceRef = useRef(null);
   const highlightSourceRef = useRef(null!);
 
-  const [openDialog, setOpenDialog] = useState<
-    "color" | "highlight" | "insertLink" | "insertYouTube" | "abbr" | false
-  >(false);
+  const [openDialog, setOpenDialog] = useState<DialogTypes | false>(false);
   const [mediaType, setMediaType] = useState<Array<AllowedTypes> | undefined>();
   const [forceInsert, setForceInsert] = useState(false);
   const [color, setColor] = useState<string>();
@@ -248,6 +250,13 @@ export default function Toolbar({ editor, settings }: ToolbarProps) {
               </IconButtonGroup>
 
               <IconButtonGroup>
+                <IconButton
+                  icon={<Music />}
+                  label={formatMessage({
+                    id: "rich-text.editor.toolbar.button.media-audio",
+                    defaultMessage: "Audio",
+                  })}
+                />
                 {settings.image.enabled ? (
                   <IconButton
                     icon={<Photo />}
@@ -265,6 +274,20 @@ export default function Toolbar({ editor, settings }: ToolbarProps) {
                     }
                   />
                 ) : null}
+                <IconButton
+                  icon={<PaperClip />}
+                  label={formatMessage({
+                    id: "rich-text.editor.toolbar.button.media-file",
+                    defaultMessage: "File",
+                  })}
+                />
+                <IconButton
+                  icon={<Movie />}
+                  label={formatMessage({
+                    id: "rich-text.editor.toolbar.button.media-video",
+                    defaultMessage: "Movie",
+                  })}
+                />
               </IconButtonGroup>
 
               <IconButtonGroup>

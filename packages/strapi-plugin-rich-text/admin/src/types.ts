@@ -1,8 +1,16 @@
 import { Editor } from "@tiptap/react";
 
-export const ALLOWED_TYPES = ["files", "images", "videos", "audios"] as const;
+const ALLOWED_TYPES = ["files", "images", "videos", "audios"] as const;
+const DIALOG_TYPES = [
+  "color",
+  "highlight",
+  "insertLink",
+  "insertYouTube",
+  "abbr",
+] as const;
 
 type AllowedTypes = (typeof ALLOWED_TYPES)[number];
+type DialogTypes = (typeof DIALOG_TYPES)[number];
 
 type AssetFormat = {
   url: string;
@@ -46,4 +54,11 @@ type DialogProps = {
   onExit: () => void;
 };
 
-export type { AllowedTypes, Asset, AssetFormat, DialogProps, TipTapAsset };
+export type {
+  AllowedTypes,
+  Asset,
+  AssetFormat,
+  DialogTypes,
+  DialogProps,
+  TipTapAsset,
+};
