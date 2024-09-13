@@ -18,6 +18,8 @@ import {
 } from "@strapi/icons";
 import { useIntl } from "react-intl";
 
+import { getUpdatedImage } from "../../lib/media";
+import { AllowedTypes, TipTapAsset } from "../../types";
 import { rgbaToHex, rgbStringToRgba, validHex } from "../../lib/color";
 import { Settings } from "../../../../types/settings";
 
@@ -42,10 +44,12 @@ interface ToolbarProps {
 export default function Toolbar({ editor, settings }: ToolbarProps) {
   const colorSourceRef = useRef(null);
   const highlightSourceRef = useRef(null!);
+
   const [openDialog, setOpenDialog] = useState<
     "color" | "highlight" | "insertLink" | "insertYouTube" | "abbr" | false
   >(false);
   const [mediaType, setMediaType] = useState<Array<AllowedTypes> | undefined>();
+  const [forceInsert, setForceInsert] = useState(false);
   const [color, setColor] = useState<string>();
 
   const { formatMessage } = useIntl();
@@ -53,6 +57,25 @@ export default function Toolbar({ editor, settings }: ToolbarProps) {
   if (!editor) {
     return null;
   }
+
+  const handleChangeAssets = (assets: Array<TipTapAsset>) => {
+    if (!forceInsert && editor.isActive("image")) {
+      assets.map((asset) => {
+        if (asset.mime.includes("image")) {
+          editor.chain().focus().setImage(getUpdatedImage(asset)).run();
+        }
+      });
+    } else {
+      assets.map((asset) => {
+        if (asset.mime.includes("image")) {
+          editor.commands.setImage(getUpdatedImage(asset));
+        }
+      });
+    }
+
+    setForceInsert(false);
+    setMediaType(undefined);
+  };
 
   return (
     <>
@@ -373,6 +396,13 @@ export default function Toolbar({ editor, settings }: ToolbarProps) {
           onExit={() => setOpenDialog(false)}
         />
       )}
+
+      <MediaLibraryDialog
+        allowedTypes={mediaType}
+        isOpen={mediaType !== undefined}
+        onChange={handleChangeAssets}
+        onToggle={() => setMediaType(undefined)}
+      />
     </>
   );
 }
