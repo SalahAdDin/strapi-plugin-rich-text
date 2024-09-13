@@ -5,7 +5,7 @@ import { Stack } from "@strapi/design-system/Stack";
 import { useState, useCallback, useEffect, ChangeEvent } from "react";
 import { useIntl } from "react-intl";
 
-import { DialogProps } from "./types";
+import { DialogProps } from "../../../types";
 
 export default function AbbrDialog({ editor, onExit }: DialogProps) {
   const [title, setTitle] = useState<string>("");

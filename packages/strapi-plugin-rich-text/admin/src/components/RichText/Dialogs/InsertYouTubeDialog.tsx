@@ -7,7 +7,7 @@ import { Stack } from "@strapi/design-system/Stack";
 import { useState, useCallback, ChangeEvent } from "react";
 import { useIntl } from "react-intl";
 
-import { DialogProps } from "./types";
+import { DialogProps } from "../../../types";
 
 export default function InsertYouTubeDialog({ editor, onExit }: DialogProps) {
   const [src, setSrc] = useState("");

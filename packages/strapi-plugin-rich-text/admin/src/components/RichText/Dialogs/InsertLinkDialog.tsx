@@ -6,7 +6,7 @@ import { Stack } from "@strapi/design-system/Stack";
 import { useState, useCallback, useEffect, ChangeEvent } from "react";
 import { useIntl } from "react-intl";
 
-import { DialogProps } from "./types";
+import { DialogProps } from "../../../types";
 
 export default function InsertLinkDialog({ editor, onExit }: DialogProps) {
   const [href, setHref] = useState<string>("");
