@@ -150,7 +150,7 @@ export default function Editor({
         : null,
       settings.audio ? AudioNodeView(AudioRenderer) : null,
       settings.file ? AttachmentNodeView(AttachmentRenderer) : null,
-      VideoNodeView(VideoRenderer),
+      settings.video ? VideoNodeView(VideoRenderer) : null,
 
       // Table
       settings.table

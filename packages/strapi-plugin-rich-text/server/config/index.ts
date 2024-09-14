@@ -111,6 +111,10 @@ export default {
       throw new Error("image must be an object with valid properties");
     }
 
+    if (typeof config.video !== "boolean") {
+      throw new Error("video must be a boolean");
+    }
+
     if (
       typeof config.other !== "object" ||
       config.other === null ||

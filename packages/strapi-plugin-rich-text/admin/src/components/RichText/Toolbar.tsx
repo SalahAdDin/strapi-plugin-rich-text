@@ -334,17 +334,17 @@ export default function Toolbar({ editor, settings }: ToolbarProps) {
                   />
                 ) : null}
 
-                {settings.file ? (
-                <IconButton
-                  icon={<Movie />}
-                  label={formatMessage({
-                    id: "rich-text.editor.toolbar.button.media-video",
-                    defaultMessage: "Video",
-                  })}
-                  disabled={!editor.view.state.selection.empty}
-                  onClick={() => setMediaType(["videos"])}
-                  className={editor.isActive("video") ? "is-active" : ""}
-                />
+                {settings.video ? (
+                  <IconButton
+                    icon={<Movie />}
+                    label={formatMessage({
+                      id: "rich-text.editor.toolbar.button.media-video",
+                      defaultMessage: "Video",
+                    })}
+                    disabled={!editor.view.state.selection.empty}
+                    onClick={() => setMediaType(["videos"])}
+                    className={editor.isActive("video") ? "is-active" : ""}
+                  />
                 ) : null}
               </IconButtonGroup>
 
