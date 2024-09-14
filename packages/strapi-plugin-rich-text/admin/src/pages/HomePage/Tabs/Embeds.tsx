@@ -17,6 +17,49 @@ const Embeds = ({ values, handleChange }: EmbedProps) => {
       <Box marginBottom={"1rem"}>
         <Typography variant={"beta"}>
           {formatMessage({
+            id: "rich-text.settings.title.media",
+            defaultMessage: "Media",
+          })}
+        </Typography>
+      </Box>
+
+      <GridLayout>
+        <Box>
+          <ToggleInput
+            label={formatMessage({
+              id: "rich-text.settings.label.file",
+              defaultMessage: "File",
+            })}
+            hint={formatMessage({
+              id: "rich-text.settings.hint.file",
+              defaultMessage: "Allow to add files to content",
+            })}
+            size="S"
+            name="files"
+            onLabel={formatMessage({
+              id: "rich-text.settings.label.enabled",
+              defaultMessage: "Enabled",
+            })}
+            offLabel={formatMessage({
+              id: "rich-text.settings.label.disabled",
+              defaultMessage: "Disabled",
+            })}
+            checked={values.file}
+            onChange={() =>
+              handleChange({
+                target: {
+                  name: "file",
+                  value: !values.file,
+                },
+              })
+            }
+          />
+        </Box>
+      </GridLayout>
+
+      <Box marginBottom={"1rem"}>
+        <Typography variant={"beta"}>
+          {formatMessage({
             id: "rich-text.settings.title.image",
             defaultMessage: "Image",
           })}

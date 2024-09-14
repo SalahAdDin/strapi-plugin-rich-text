@@ -93,6 +93,10 @@ export default {
       throw new Error("links must be an object with valid properties");
     }
 
+    if (typeof config.file !== "boolean") {
+      throw new Error("file must be a boolean");
+    }
+
     if (
       typeof config.image !== "object" ||
       config.image === null ||

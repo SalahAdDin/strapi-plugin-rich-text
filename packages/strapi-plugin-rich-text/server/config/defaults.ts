@@ -27,6 +27,7 @@ const defaultSettings: Settings = {
       rel: "",
     },
   },
+  file: true,
   image: {
     enabled: true,
     inline: true,
