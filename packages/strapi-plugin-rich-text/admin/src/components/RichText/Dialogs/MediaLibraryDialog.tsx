@@ -2,12 +2,12 @@ import React from "react";
 
 import { prefixFileUrlWithBackendUrl, useLibrary } from "@strapi/helper-plugin";
 
-import { AllowedTypes, Asset, TipTapAsset } from "../../../types";
+import { AllowedTypes, Asset } from "../../../types";
 
 type MediaLibraryDialogProps = {
   allowedTypes?: Array<AllowedTypes>;
   isOpen: boolean;
-  onChange: (assets: Array<TipTapAsset>) => void;
+  onChange: (assets: Array<Asset>) => void;
   onToggle: () => void;
 };
 
@@ -21,11 +21,9 @@ const MediaLibraryDialog = ({
   const MediaLibraryModal = components["media-library"];
 
   const handleSelectedAssets = (files: Array<Asset>) => {
-    const formattedFiles = files.map(({ alternativeText, ...file }) => ({
+    const formattedFiles = files.map((file) => ({
       ...file,
-      alt: alternativeText || file.name,
-      url: prefixFileUrlWithBackendUrl(file.url),
-      mime: file.mime,
+      url: prefixFileUrlWithBackendUrl(file.url) as unknown as string,
     }));
 
     onChange(formattedFiles);
