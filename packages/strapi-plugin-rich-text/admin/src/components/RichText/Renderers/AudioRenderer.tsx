@@ -13,8 +13,8 @@ const AudioRenderer = (props: AudioProps) => {
         <audio
           src={node.attrs.src}
           controls
-          data-document-id={node.attrs.src}
-          data-document-name={node.attrs.name}
+          data-document-id={node.attrs.documentId}
+          data-document-name={node.attrs.documentName}
         >
           <track kind="captions" />
         </audio>
