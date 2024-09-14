@@ -305,6 +305,7 @@ export default function Toolbar({ editor, settings }: ToolbarProps) {
                     }
                   />
                 ) : null}
+
                 {settings.image.allowBase64 ? (
                   <IconButton
                     icon={<PhotoBitcoin />}
@@ -329,6 +330,7 @@ export default function Toolbar({ editor, settings }: ToolbarProps) {
                     }}
                   />
                 ) : null}
+
                 {settings.file ? (
                   <IconButton
                     icon={<PaperClip />}
@@ -432,9 +434,11 @@ export default function Toolbar({ editor, settings }: ToolbarProps) {
           </Flex>
         </Box>
       </StyledToolbar>
+
       {settings.abbreviation && openDialog === "abbr" && (
         <AbbrDialog editor={editor} onExit={() => setOpenDialog(false)} />
       )}
+
       {settings.color && openDialog === "color" && (
         <ColorPickerPopover
           ref={colorSourceRef}
@@ -446,6 +450,7 @@ export default function Toolbar({ editor, settings }: ToolbarProps) {
           }
         />
       )}
+
       {settings.highlight && openDialog === "highlight" && (
         <ColorPickerPopover
           ref={highlightSourceRef}
@@ -463,15 +468,18 @@ export default function Toolbar({ editor, settings }: ToolbarProps) {
           }
         />
       )}
+
       {settings.links.enabled && openDialog === "insertLink" && (
         <InsertLinkDialog editor={editor} onExit={() => setOpenDialog(false)} />
       )}
+
       {settings.youtube.enabled && openDialog === "insertYouTube" && (
         <InsertYouTubeDialog
           editor={editor}
           onExit={() => setOpenDialog(false)}
         />
       )}
+
       {settings.image.allowBase64 && openDialog === "base64Image" && (
         <Base64ImageDialog
           base64Image={base64Image}
