@@ -66,9 +66,10 @@ export default function Toolbar({ editor, settings }: ToolbarProps) {
     if (mediaType?.includes("images"))
       assets.forEach((asset) => {
         if (asset.mime.includes("image")) {
-          if (!forceInsert)
-            editor.chain().focus().setImage(getUpdatedImage(asset)).run();
-          else editor.commands.setImage(getUpdatedImage(asset));
+          const image = getUpdatedImage(asset);
+
+          if (!forceInsert) editor.chain().focus().setImage(image).run();
+          else editor.commands.setImage(image);
         }
       });
 
