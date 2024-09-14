@@ -148,7 +148,7 @@ export default function Editor({
             allowBase64: settings.image.allowBase64,
           })
         : null,
-      AttachmentNodeView(AttachmentRenderer),
+      settings.file ? AttachmentNodeView(AttachmentRenderer) : null,
 
       // Table
       settings.table

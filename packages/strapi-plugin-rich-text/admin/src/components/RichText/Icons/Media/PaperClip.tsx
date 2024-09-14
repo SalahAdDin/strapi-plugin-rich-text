@@ -1,4 +1,4 @@
-const Download = () => (
+const PaperClip = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 24 24"
@@ -9,8 +9,8 @@ const Download = () => (
     strokeWidth="2"
     className="extra-icon"
   >
-    <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2M7 11l5 5 5-5M12 4v12" />
+    <path d="m15 7-6.5 6.5a1.5 1.5 0 0 0 3 3L18 10a3 3 0 0 0-6-6l-6.5 6.5a4.5 4.5 0 0 0 9 9L21 13" />
   </svg>
 );
 
-export default Download;
+export default PaperClip;
