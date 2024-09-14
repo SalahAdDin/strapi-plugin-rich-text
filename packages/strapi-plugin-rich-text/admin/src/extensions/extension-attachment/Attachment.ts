@@ -42,6 +42,7 @@ export const Attachment = Node.create<AttachmentOptions>({
         {
           name: el.name,
           href: el.href,
+          documentExtension: el.documentExtension,
           documentId: el.documentId,
           documentSize: el.documentSize,
           dataContentType: el.dataContentType,
@@ -66,6 +67,9 @@ export const Attachment = Node.create<AttachmentOptions>({
             const href = link.getAttribute("href");
             const name = link.textContent;
             const regexResult = href?.match(/([^/]+$)/);
+            const documentExtension = link.getAttribute(
+              "data-document-extension"
+            );
             const documentId =
               link.getAttribute("data-document-id") ||
               (regexResult && regexResult[0]);
@@ -75,6 +79,7 @@ export const Attachment = Node.create<AttachmentOptions>({
             parsedLinks.push({
               href,
               name,
+              documentExtension,
               documentId,
               documentSize,
               dataContentType,
@@ -88,6 +93,7 @@ export const Attachment = Node.create<AttachmentOptions>({
             links: attributes.links.map((link) => ({
               href: link.href,
               name: link.name,
+              documentExtension: link.documentExtension,
               documentId: link.documentId,
               dataContentType: link.dataContentType,
               documentSize: link.documentSize,
@@ -105,6 +111,7 @@ export const Attachment = Node.create<AttachmentOptions>({
           attrs = {
             dataContentType: "",
             name: "",
+            documentExtension: "",
             documentId: "",
             documentSize: "",
             href: "",
@@ -112,7 +119,7 @@ export const Attachment = Node.create<AttachmentOptions>({
         ) =>
         ({ chain }) => {
           return chain()
-            .insertContent({ type: this.name, attrs: { links: [attrs] } })
+            .insertContent({ type: this.name, attrs: { links: attrs } })
             .run();
         },
     };

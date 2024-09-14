@@ -6,6 +6,7 @@ export const getUpdatedFile = (asset: Asset) => ({
   href: asset.url,
   name: asset.name,
   dataContentType: asset.mime,
+  documentExtension: asset.ext,
   documentId: asset.id,
   documentSize: asset.size,
 });
@@ -57,20 +58,7 @@ export const FILE_EXTENSION_COLORS = {
   "": "#f0f0ff",
 };
 
-/**
- * Return an extension by passed file name
- *
- * @param {string|undefined} name  - file name to process
- * @returns {string}
- */
-export const getExtensionFromFileName = (name: string) => {
-  if (name === undefined) {
-    return "";
-  }
-
-  return (name.split(".").pop() ??
-    "") as unknown as keyof typeof FILE_EXTENSION_COLORS;
-};
+export type TFileExtension = keyof typeof FILE_EXTENSION_COLORS;
 
 export const formatBytes = (receivedBytes: number, decimals = 0) => {
   const { value, unit } = byteSize(receivedBytes * 1000, {

@@ -63,24 +63,25 @@ export default function Toolbar({ editor, settings }: ToolbarProps) {
   }
 
   const handleChangeAssets = (assets: Array<Asset>) => {
-    if (!forceInsert) {
-      assets.map((asset) => {
+    if (mediaType?.includes("images"))
+      assets.forEach((asset) => {
         if (asset.mime.includes("image")) {
-          editor.chain().focus().setImage(getUpdatedImage(asset)).run();
-        }
-        if (asset.mime.includes("application") || asset.mime.includes("text")) {
-          editor.chain().focus().setAttachment(getUpdatedFile(asset)).run();
+          if (!forceInsert)
+            editor.chain().focus().setImage(getUpdatedImage(asset)).run();
+          else editor.commands.setImage(getUpdatedImage(asset));
         }
       });
-    } else {
-      assets.map((asset) => {
-        if (asset.mime.includes("image")) {
-          editor.commands.setImage(getUpdatedImage(asset));
-        }
-        if (asset.mime.includes("application") || asset.mime.includes("text")) {
-          editor.commands.setAttachment(getUpdatedFile(asset));
-        }
-      });
+
+    if (mediaType?.includes("files")) {
+      const attachments = assets
+        .filter(
+          (asset) =>
+            asset.mime.includes("application") || asset.mime.includes("text")
+        )
+        .map((asset) => getUpdatedFile(asset));
+
+      if (!forceInsert) editor.chain().focus().setAttachment(attachments).run();
+      else editor.commands.setAttachment(attachments);
     }
 
     setForceInsert(false);

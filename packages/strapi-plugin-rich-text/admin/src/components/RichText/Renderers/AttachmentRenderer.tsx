@@ -4,6 +4,7 @@ import { useIntl } from "react-intl";
 import { Box } from "@strapi/design-system/Box";
 import { IconButton, IconButtonGroup } from "@strapi/design-system/IconButton";
 import { GridLayout } from "@strapi/design-system/Layout";
+import { getFileExtension } from "@strapi/helper-plugin";
 import { Editor, NodeViewWrapper } from "@tiptap/react";
 
 import Attachment from "../Components/Attachment";
@@ -19,8 +20,9 @@ type AttachmentProps = {
 interface AttachmentAttrsProps {
   name: string;
   href: string;
-  documentId: number;
   dataContentType: string;
+  documentExtension: string;
+  documentId: number;
   documentSize: number;
 }
 
@@ -63,6 +65,7 @@ const AttachmentRenderer = (props: AttachmentProps) => {
                 <Attachment
                   name={attachment.name}
                   size={attachment.documentSize}
+                  extension={getFileExtension(attachment.documentExtension)}
                   options={
                     <IconButtonGroup>
                       <a href={attachment.href} download>
