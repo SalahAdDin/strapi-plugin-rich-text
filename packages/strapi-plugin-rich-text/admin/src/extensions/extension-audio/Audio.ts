@@ -87,7 +87,7 @@ export const Audio = Node.create({
               src="${src}" 
               controls preload="none"
               data-document-id="${id}"
-              data-document-name="${name}"></audio>`,
+              data-document-name="${name}" />`,
             options
           );
         },
