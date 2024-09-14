@@ -23,6 +23,7 @@ import {
   getUpdatedAudio,
   getUpdatedFile,
   getUpdatedImage,
+  getUpdatedVideo,
 } from "../../lib/media";
 import { AllowedTypes, Asset, DialogTypes } from "../../types";
 import { rgbaToHex, rgbStringToRgba, validHex } from "../../lib/color";
@@ -45,6 +46,7 @@ import Music from "./Icons/Media/Music";
 import PaperClip from "./Icons/Media/PaperClip";
 import Photo from "./Icons/Media/Photo";
 import { StyledToolbar } from "./Toolbar.styles";
+import Movie from "./Icons/Media/Movie";
 
 interface ToolbarProps {
   editor: Editor | null;
@@ -333,16 +335,16 @@ export default function Toolbar({ editor, settings }: ToolbarProps) {
                 ) : null}
 
                 {settings.file ? (
-                  <IconButton
-                    icon={<PaperClip />}
-                    label={formatMessage({
-                      id: "rich-text.editor.toolbar.button.media-file",
-                      defaultMessage: "File",
-                    })}
-                    disabled={!editor.view.state.selection.empty}
-                    onClick={() => setMediaType(["files"])}
-                    className={editor.isActive("attachment") ? "is-active" : ""}
-                  />
+                <IconButton
+                  icon={<Movie />}
+                  label={formatMessage({
+                    id: "rich-text.editor.toolbar.button.media-video",
+                    defaultMessage: "Video",
+                  })}
+                  disabled={!editor.view.state.selection.empty}
+                  onClick={() => setMediaType(["videos"])}
+                  className={editor.isActive("video") ? "is-active" : ""}
+                />
                 ) : null}
               </IconButtonGroup>
 
