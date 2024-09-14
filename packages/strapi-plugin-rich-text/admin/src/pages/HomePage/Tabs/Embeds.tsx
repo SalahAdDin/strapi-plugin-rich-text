@@ -27,6 +27,37 @@ const Embeds = ({ values, handleChange }: EmbedProps) => {
         <Box>
           <ToggleInput
             label={formatMessage({
+              id: "rich-text.settings.label.audio",
+              defaultMessage: "Audio",
+            })}
+            hint={formatMessage({
+              id: "rich-text.settings.hint.audio",
+              defaultMessage: "Allow to add audios to content",
+            })}
+            size="S"
+            name="audio"
+            onLabel={formatMessage({
+              id: "rich-text.settings.label.enabled",
+              defaultMessage: "Enabled",
+            })}
+            offLabel={formatMessage({
+              id: "rich-text.settings.label.disabled",
+              defaultMessage: "Disabled",
+            })}
+            checked={values.audio}
+            onChange={() =>
+              handleChange({
+                target: {
+                  name: "audio",
+                  value: !values.audio,
+                },
+              })
+            }
+          />
+        </Box>
+        <Box>
+          <ToggleInput
+            label={formatMessage({
               id: "rich-text.settings.label.file",
               defaultMessage: "File",
             })}

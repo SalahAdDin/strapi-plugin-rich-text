@@ -33,6 +33,7 @@ type Settings = {
       rel: string;
     };
   };
+  audio: boolean;
   file: boolean;
   image: {
     enabled: boolean;

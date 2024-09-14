@@ -275,16 +275,19 @@ export default function Toolbar({ editor, settings }: ToolbarProps) {
               </IconButtonGroup>
 
               <IconButtonGroup>
-                <IconButton
-                  icon={<Music />}
-                  label={formatMessage({
-                    id: "rich-text.editor.toolbar.button.media-audio",
-                    defaultMessage: "Audio",
-                  })}
-                  disabled={!editor.view.state.selection.empty}
-                  onClick={() => setMediaType(["audios"])}
-                  className={editor.isActive("audio") ? "is-active" : ""}
-                />
+                {settings.audio ? (
+                  <IconButton
+                    icon={<Music />}
+                    label={formatMessage({
+                      id: "rich-text.editor.toolbar.button.media-audio",
+                      defaultMessage: "Audio",
+                    })}
+                    disabled={!editor.view.state.selection.empty}
+                    onClick={() => setMediaType(["audios"])}
+                    className={editor.isActive("audio") ? "is-active" : ""}
+                  />
+                ) : null}
+
                 {settings.image.enabled ? (
                   <IconButton
                     icon={<Photo />}
