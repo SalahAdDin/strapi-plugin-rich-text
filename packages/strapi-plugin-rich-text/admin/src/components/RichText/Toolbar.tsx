@@ -19,8 +19,8 @@ import {
 } from "@strapi/icons";
 import { Editor } from "@tiptap/react";
 
-import { getUpdatedImage } from "../../lib/media";
-import { AllowedTypes, DialogTypes, TipTapAsset } from "../../types";
+import { getUpdatedFile, getUpdatedImage } from "../../lib/media";
+import { AllowedTypes, Asset, DialogTypes } from "../../types";
 import { rgbaToHex, rgbStringToRgba, validHex } from "../../lib/color";
 import { Settings } from "../../../../types/settings";
 
@@ -37,6 +37,7 @@ import AlignCenter from "./Icons/AlignCenter";
 import AlignRight from "./Icons/AlignRight";
 import NewTableIcon from "./Icons/Table/NewTable";
 import PhotoBitcoin from "./Icons/Media/PhotoBitcoin";
+import PaperClip from "./Icons/Media/PaperClip";
 import Photo from "./Icons/Media/Photo";
 import { StyledToolbar } from "./Toolbar.styles";
 
@@ -61,17 +62,23 @@ export default function Toolbar({ editor, settings }: ToolbarProps) {
     return null;
   }
 
-  const handleChangeAssets = (assets: Array<TipTapAsset>) => {
-    if (!forceInsert && editor.isActive("image")) {
+  const handleChangeAssets = (assets: Array<Asset>) => {
+    if (!forceInsert) {
       assets.map((asset) => {
         if (asset.mime.includes("image")) {
           editor.chain().focus().setImage(getUpdatedImage(asset)).run();
+        }
+        if (asset.mime.includes("application") || asset.mime.includes("text")) {
+          editor.chain().focus().setAttachment(getUpdatedFile(asset)).run();
         }
       });
     } else {
       assets.map((asset) => {
         if (asset.mime.includes("image")) {
           editor.commands.setImage(getUpdatedImage(asset));
+        }
+        if (asset.mime.includes("application") || asset.mime.includes("text")) {
+          editor.commands.setAttachment(getUpdatedFile(asset));
         }
       });
     }
@@ -290,6 +297,18 @@ export default function Toolbar({ editor, settings }: ToolbarProps) {
 
                       setOpenDialog("base64Image");
                     }}
+                  />
+                ) : null}
+                {settings.file ? (
+                  <IconButton
+                    icon={<PaperClip />}
+                    label={formatMessage({
+                      id: "rich-text.editor.toolbar.button.media-file",
+                      defaultMessage: "File",
+                    })}
+                    disabled={!editor.view.state.selection.empty}
+                    onClick={() => setMediaType(["files"])}
+                    className={editor.isActive("attachment") ? "is-active" : ""}
                   />
                 ) : null}
               </IconButtonGroup>

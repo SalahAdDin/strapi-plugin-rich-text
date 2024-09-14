@@ -32,6 +32,8 @@ import { Text } from "@tiptap/extension-text";
 import { Underline } from "@tiptap/extension-underline";
 import { Youtube } from "@tiptap/extension-youtube";
 
+import { common, createLowlight } from "lowlight";
+
 import AlertToolbar from "./Components/AlertToolbar";
 import TableToolbar from "./Components/TableToolbar";
 import CountDisplay from "./CountDisplay";
@@ -42,7 +44,8 @@ import Abbr from "../../extensions/extension-abbr";
 import Alert from "../../extensions/extension-alert/src";
 import type { Settings } from "../../../../types/settings";
 
-import { common, createLowlight } from "lowlight";
+import { AttachmentNodeView } from "./NodeView";
+import { AttachmentRenderer } from "./Renderers";
 
 const lowlight = createLowlight(common);
 
@@ -145,6 +148,7 @@ export default function Editor({
             allowBase64: settings.image.allowBase64,
           })
         : null,
+      settings.file ? AttachmentNodeView(AttachmentRenderer) : null,
 
       // Table
       settings.table

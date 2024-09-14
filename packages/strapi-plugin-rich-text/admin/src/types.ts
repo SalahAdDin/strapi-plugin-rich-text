@@ -35,7 +35,7 @@ type BaseAsset = Omit<AssetFormat, "width" | "height"> & {
 };
 
 type Asset = BaseAsset & {
-  alternativeText: string | null;
+  alternativeText?: string;
   related?: Array<any>;
   formats?: {
     thumbnail?: AssetFormat;
@@ -45,21 +45,9 @@ type Asset = BaseAsset & {
   };
 };
 
-type TipTapAsset = BaseAsset & {
-  alt: string;
-  // loading: string;
-};
-
 type DialogProps = {
   editor: Editor;
   onExit: () => void;
 };
 
-export type {
-  AllowedTypes,
-  Asset,
-  AssetFormat,
-  DialogTypes,
-  DialogProps,
-  TipTapAsset,
-};
+export type { AllowedTypes, Asset, AssetFormat, DialogTypes, DialogProps };

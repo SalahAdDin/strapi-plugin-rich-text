@@ -33,6 +33,7 @@ type Settings = {
       rel: string;
     };
   };
+  file: boolean;
   image: {
     enabled: boolean;
     inline: boolean;
