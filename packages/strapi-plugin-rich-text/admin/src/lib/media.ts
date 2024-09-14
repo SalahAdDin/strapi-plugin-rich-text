@@ -2,6 +2,12 @@ import byteSize from "byte-size";
 
 import { Asset } from "../types";
 
+export const getUpdatedAudio = (asset: Asset) => ({
+  id: asset.id,
+  name: asset.name,
+  src: asset.url,
+});
+
 export const getUpdatedFile = (asset: Asset) => ({
   href: asset.url,
   name: asset.name,

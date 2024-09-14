@@ -27,6 +27,7 @@ const defaultSettings: Settings = {
       rel: "",
     },
   },
+  audio: true,
   file: true,
   image: {
     enabled: true,

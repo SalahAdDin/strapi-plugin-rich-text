@@ -44,8 +44,8 @@ import Abbr from "../../extensions/extension-abbr";
 import Alert from "../../extensions/extension-alert/src";
 import type { Settings } from "../../../../types/settings";
 
-import { AttachmentNodeView } from "./NodeView";
-import { AttachmentRenderer } from "./Renderers";
+import { AttachmentNodeView, AudioNodeView } from "./NodeView";
+import { AttachmentRenderer, AudioRenderer } from "./Renderers";
 
 const lowlight = createLowlight(common);
 
@@ -148,6 +148,7 @@ export default function Editor({
             allowBase64: settings.image.allowBase64,
           })
         : null,
+      settings.audio ? AudioNodeView(AudioRenderer) : null,
       settings.file ? AttachmentNodeView(AttachmentRenderer) : null,
 
       // Table
