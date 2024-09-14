@@ -66,6 +66,13 @@ export const FILE_EXTENSION_COLORS = {
 
 export type TFileExtension = keyof typeof FILE_EXTENSION_COLORS;
 
+export const getUpdatedVideo = (asset: Asset) => ({
+  id: asset.id,
+  src: asset.url,
+  width: asset.width,
+  height: asset.height,
+});
+
 export const formatBytes = (receivedBytes: number, decimals = 0) => {
   const { value, unit } = byteSize(receivedBytes * 1000, {
     precision: decimals,
