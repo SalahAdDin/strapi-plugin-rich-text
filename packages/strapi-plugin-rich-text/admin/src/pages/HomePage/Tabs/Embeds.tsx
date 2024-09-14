@@ -66,7 +66,7 @@ const Embeds = ({ values, handleChange }: EmbedProps) => {
               defaultMessage: "Allow to add files to content",
             })}
             size="S"
-            name="files"
+            name="file"
             onLabel={formatMessage({
               id: "rich-text.settings.label.enabled",
               defaultMessage: "Enabled",
