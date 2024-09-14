@@ -19,7 +19,11 @@ import {
 } from "@strapi/icons";
 import { Editor } from "@tiptap/react";
 
-import { getUpdatedFile, getUpdatedImage } from "../../lib/media";
+import {
+  getUpdatedAudio,
+  getUpdatedFile,
+  getUpdatedImage,
+} from "../../lib/media";
 import { AllowedTypes, Asset, DialogTypes } from "../../types";
 import { rgbaToHex, rgbStringToRgba, validHex } from "../../lib/color";
 import { Settings } from "../../../../types/settings";
@@ -37,6 +41,7 @@ import AlignCenter from "./Icons/AlignCenter";
 import AlignRight from "./Icons/AlignRight";
 import NewTableIcon from "./Icons/Table/NewTable";
 import PhotoBitcoin from "./Icons/Media/PhotoBitcoin";
+import Music from "./Icons/Media/Music";
 import PaperClip from "./Icons/Media/PaperClip";
 import Photo from "./Icons/Media/Photo";
 import { StyledToolbar } from "./Toolbar.styles";
@@ -82,6 +87,17 @@ export default function Toolbar({ editor, settings }: ToolbarProps) {
 
       if (!forceInsert) editor.chain().focus().setAttachment(attachments).run();
       else editor.commands.setAttachment(attachments);
+    }
+
+    if (mediaType?.includes("audios")) {
+      assets.forEach((asset) => {
+        if (asset.mime.includes("audio")) {
+          const { id, name, src } = getUpdatedAudio(asset);
+          if (!forceInsert)
+            editor.chain().focus().setAudio(String(id), name, src).run();
+          else editor.commands.setAudio(String(id), name, src);
+        }
+      });
     }
 
     setForceInsert(false);
@@ -259,6 +275,16 @@ export default function Toolbar({ editor, settings }: ToolbarProps) {
               </IconButtonGroup>
 
               <IconButtonGroup>
+                <IconButton
+                  icon={<Music />}
+                  label={formatMessage({
+                    id: "rich-text.editor.toolbar.button.media-audio",
+                    defaultMessage: "Audio",
+                  })}
+                  disabled={!editor.view.state.selection.empty}
+                  onClick={() => setMediaType(["audios"])}
+                  className={editor.isActive("audio") ? "is-active" : ""}
+                />
                 {settings.image.enabled ? (
                   <IconButton
                     icon={<Photo />}
