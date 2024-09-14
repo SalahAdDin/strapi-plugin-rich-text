@@ -2,31 +2,6 @@ import byteSize from "byte-size";
 
 import { Asset } from "../types";
 
-export const getUpdatedAudio = (asset: Asset) => ({
-  id: asset.id,
-  name: asset.name,
-  src: asset.url,
-});
-
-export const getUpdatedFile = (asset: Asset) => ({
-  href: asset.url,
-  name: asset.name,
-  dataContentType: asset.mime,
-  documentExtension: asset.ext,
-  documentId: asset.id,
-  documentSize: asset.size,
-});
-
-export const getUpdatedImage = (asset: Asset) => ({
-  src: asset.url,
-  alt: asset.alternativeText,
-  ...(asset.width && { width: asset.width }),
-  ...(asset.height && { height: asset.height }),
-  ...((asset.url?.includes("lazy") || asset.caption === "lazy") && {
-    loading: "lazy",
-  }),
-});
-
 /**
  * Possible files' extension colors
  *
@@ -65,6 +40,31 @@ export const FILE_EXTENSION_COLORS = {
 };
 
 export type TFileExtension = keyof typeof FILE_EXTENSION_COLORS;
+
+export const getUpdatedAudio = (asset: Asset) => ({
+  id: asset.id,
+  name: asset.name,
+  src: asset.url,
+});
+
+export const getUpdatedFile = (asset: Asset) => ({
+  href: asset.url,
+  name: asset.name,
+  dataContentType: asset.mime,
+  documentExtension: asset.ext,
+  documentId: asset.id,
+  documentSize: asset.size,
+});
+
+export const getUpdatedImage = (asset: Asset) => ({
+  src: asset.url,
+  alt: asset.alternativeText,
+  ...(asset.width && { width: asset.width }),
+  ...(asset.height && { height: asset.height }),
+  ...((asset.url?.includes("lazy") || asset.caption === "lazy") && {
+    loading: "lazy",
+  }),
+});
 
 export const getUpdatedVideo = (asset: Asset) => ({
   id: asset.id,
