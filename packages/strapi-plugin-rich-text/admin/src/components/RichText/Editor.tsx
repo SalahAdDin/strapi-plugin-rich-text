@@ -148,8 +148,8 @@ export default function Editor({
             allowBase64: settings.image.allowBase64,
           })
         : null,
+      settings.audio ? AudioNodeView(AudioRenderer) : null,
       settings.file ? AttachmentNodeView(AttachmentRenderer) : null,
-      AudioNodeView(AudioRenderer),
 
       // Table
       settings.table
