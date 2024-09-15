@@ -187,6 +187,8 @@ export default function Editor({
       : removeOutputPrefix(initialContent),
     onUpdate: ({ editor }) => {
       if (settings.other.saveJson) {
+        console.log("Content: ", JSON.stringify(editor.getJSON()));
+
         onChange(JSON.stringify(editor.getJSON()));
       } else {
         onChange(OUTPUT_PREFIX + editor.getHTML());
