@@ -23,6 +23,7 @@ import {
   getUpdatedAudio,
   getUpdatedFile,
   getUpdatedImage,
+  getUpdatedVideo,
 } from "../../lib/media";
 import { AllowedTypes, Asset, DialogTypes } from "../../types";
 import { rgbaToHex, rgbStringToRgba, validHex } from "../../lib/color";
@@ -45,6 +46,7 @@ import Music from "./Icons/Media/Music";
 import PaperClip from "./Icons/Media/PaperClip";
 import Photo from "./Icons/Media/Photo";
 import { StyledToolbar } from "./Toolbar.styles";
+import Movie from "./Icons/Media/Movie";
 
 interface ToolbarProps {
   editor: Editor | null;
@@ -68,13 +70,14 @@ export default function Toolbar({ editor, settings }: ToolbarProps) {
   }
 
   const handleChangeAssets = (assets: Array<Asset>) => {
-    if (mediaType?.includes("images"))
+    if (mediaType?.includes("audios"))
       assets.forEach((asset) => {
-        if (asset.mime.includes("image")) {
-          const image = getUpdatedImage(asset);
+        if (asset.mime.includes("audio")) {
+          const { id, name, src } = getUpdatedAudio(asset);
 
-          if (!forceInsert) editor.chain().focus().setImage(image).run();
-          else editor.commands.setImage(image);
+          if (!forceInsert)
+            editor.chain().focus().setAudio(String(id), name, src).run();
+          else editor.commands.setAudio(String(id), name, src);
         }
       });
 
@@ -90,13 +93,24 @@ export default function Toolbar({ editor, settings }: ToolbarProps) {
       else editor.commands.setAttachment(attachments);
     }
 
-    if (mediaType?.includes("audios")) {
+    if (mediaType?.includes("images"))
       assets.forEach((asset) => {
-        if (asset.mime.includes("audio")) {
-          const { id, name, src } = getUpdatedAudio(asset);
+        if (asset.mime.includes("image")) {
+          const image = getUpdatedImage(asset);
+
+          if (!forceInsert) editor.chain().focus().setImage(image).run();
+          else editor.commands.setImage(image);
+        }
+      });
+
+    if (mediaType?.includes("videos")) {
+      assets.forEach((asset) => {
+        if (asset.mime.includes("video")) {
+          const { id, src, width, height } = getUpdatedVideo(asset);
+
           if (!forceInsert)
-            editor.chain().focus().setAudio(String(id), name, src).run();
-          else editor.commands.setAudio(String(id), name, src);
+            editor.chain().focus().setVideo(String(id), src, width, height);
+          else editor.commands.setVideo(String(id), src, width, height);
         }
       });
     }
@@ -289,6 +303,19 @@ export default function Toolbar({ editor, settings }: ToolbarProps) {
                   />
                 ) : null}
 
+                {settings.file ? (
+                  <IconButton
+                    icon={<PaperClip />}
+                    label={formatMessage({
+                      id: "rich-text.editor.toolbar.button.media-file",
+                      defaultMessage: "File",
+                    })}
+                    disabled={!editor.view.state.selection.empty}
+                    onClick={() => setMediaType(["files"])}
+                    className={editor.isActive("attachment") ? "is-active" : ""}
+                  />
+                ) : null}
+
                 {settings.image.enabled ? (
                   <IconButton
                     icon={<Photo />}
@@ -332,16 +359,16 @@ export default function Toolbar({ editor, settings }: ToolbarProps) {
                   />
                 ) : null}
 
-                {settings.file ? (
+                {settings.video ? (
                   <IconButton
-                    icon={<PaperClip />}
+                    icon={<Movie />}
                     label={formatMessage({
-                      id: "rich-text.editor.toolbar.button.media-file",
-                      defaultMessage: "File",
+                      id: "rich-text.editor.toolbar.button.media-video",
+                      defaultMessage: "Video",
                     })}
                     disabled={!editor.view.state.selection.empty}
-                    onClick={() => setMediaType(["files"])}
-                    className={editor.isActive("attachment") ? "is-active" : ""}
+                    onClick={() => setMediaType(["videos"])}
+                    className={editor.isActive("video") ? "is-active" : ""}
                   />
                 ) : null}
               </IconButtonGroup>

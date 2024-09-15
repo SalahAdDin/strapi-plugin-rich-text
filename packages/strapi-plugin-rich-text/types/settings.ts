@@ -40,6 +40,7 @@ type Settings = {
     inline: boolean;
     allowBase64: boolean;
   };
+  video: boolean;
   other: {
     characterLimit?: number;
     wordcount: boolean;
