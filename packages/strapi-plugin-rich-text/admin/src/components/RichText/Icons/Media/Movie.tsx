@@ -1,4 +1,4 @@
-import React, { forwardRef } from "react";
+import { forwardRef } from "react";
 import { IconProps } from "../../../../types";
 import IconWrapper from "../IconWrapper";
 

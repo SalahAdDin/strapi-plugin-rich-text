@@ -1,7 +1,5 @@
 import { forwardRef } from "react";
-
 import { IconProps } from "../../../types";
-
 import IconWrapper from "./IconWrapper";
 
 const Download = forwardRef<SVGSVGElement, Omit<IconProps, "children">>(
