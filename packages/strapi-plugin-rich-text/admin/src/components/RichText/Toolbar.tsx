@@ -41,12 +41,12 @@ import AlignLeft from "./Icons/Alignment/AlignLeft";
 import AlignCenter from "./Icons/Alignment/AlignCenter";
 import AlignRight from "./Icons/Alignment/AlignRight";
 import NewTableIcon from "./Icons/Table/NewTable";
-import PhotoBitcoin from "./Icons/Media/PhotoBitcoin";
+import Movie from "./Icons/Media/Movie";
 import Music from "./Icons/Media/Music";
 import PaperClip from "./Icons/Media/PaperClip";
 import Photo from "./Icons/Media/Photo";
+import PhotoBitcoin from "./Icons/Media/PhotoBitcoin";
 import { StyledToolbar } from "./Toolbar.styles";
-import Movie from "./Icons/Media/Movie";
 
 interface ToolbarProps {
   editor: Editor | null;
