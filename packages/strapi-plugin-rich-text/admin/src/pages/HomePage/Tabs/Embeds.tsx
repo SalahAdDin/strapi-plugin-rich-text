@@ -86,6 +86,37 @@ const Embeds = ({ values, handleChange }: EmbedProps) => {
             }
           />
         </Box>
+        <Box>
+          <ToggleInput
+            label={formatMessage({
+              id: "rich-text.settings.label.video",
+              defaultMessage: "Video",
+            })}
+            hint={formatMessage({
+              id: "rich-text.settings.hint.video",
+              defaultMessage: "Allow to add videos to content",
+            })}
+            size="S"
+            name="video"
+            onLabel={formatMessage({
+              id: "rich-text.settings.label.enabled",
+              defaultMessage: "Enabled",
+            })}
+            offLabel={formatMessage({
+              id: "rich-text.settings.label.disabled",
+              defaultMessage: "Disabled",
+            })}
+            checked={values.video}
+            onChange={() =>
+              handleChange({
+                target: {
+                  name: "video",
+                  value: !values.video,
+                },
+              })
+            }
+          />
+        </Box>
       </GridLayout>
 
       <Box marginBottom={"1rem"}>

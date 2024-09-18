@@ -34,6 +34,7 @@ const defaultSettings: Settings = {
     inline: true,
     allowBase64: false,
   },
+  video: true,
   other: {
     wordcount: false,
     saveJson: false,

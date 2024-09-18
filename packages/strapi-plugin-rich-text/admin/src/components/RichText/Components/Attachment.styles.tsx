@@ -59,6 +59,7 @@ export const ExtensionParagraph = styled.p<{
 }>`
   background-color: ${(props) => FILE_EXTENSION_COLORS[props.extension]};
   padding: 0.75rem 0.5rem;
+  align-content: center;
   border-radius: 0.5rem;
   text-transform: uppercase;
   color: white;

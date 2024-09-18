@@ -1,7 +1,7 @@
 import { mergeAttributes, Node } from "@tiptap/core";
 
 export interface AudioOptions {
-  url: string;
+  src: string;
   HTMLAttributes: Record<string, any>;
 }
 
@@ -24,19 +24,18 @@ declare module "@tiptap/core" {
 
 export const Audio = Node.create({
   name: "audio",
-
   group: "block",
 
   addAttributes() {
     return {
       src: {
         default: null,
-        renderHTML: (attributes: any) => ({ src: attributes.src }),
+        renderHTML: (attributes) => ({ src: attributes.src }),
         parseHTML: (element: HTMLAudioElement) => element.getAttribute("src"),
       },
       documentId: {
         default: "",
-        renderHTML: (attributes: any) => {
+        renderHTML: (attributes) => {
           return {
             "data-document-id": attributes.documentId,
           };
@@ -46,7 +45,7 @@ export const Audio = Node.create({
       },
       documentName: {
         default: "",
-        renderHTML: (attributes: any) => {
+        renderHTML: (attributes) => {
           return {
             "data-document-name": attributes.documentName,
           };
@@ -61,7 +60,7 @@ export const Audio = Node.create({
     return [
       {
         tag: "div.audio-wrapper>audio,audio",
-        getAttrs: (element: any) => ({
+        getAttrs: (element) => ({
           src: (element as HTMLAudioElement).getAttribute("src"),
         }),
       },
@@ -85,9 +84,10 @@ export const Audio = Node.create({
             state.selection,
             `<audio 
               src="${src}" 
-              controls preload="none"
+              controls 
+              preload="none"
               data-document-id="${id}"
-              data-document-name="${name}"></audio>`,
+              data-document-name="${name}" />`,
             options
           );
         },
