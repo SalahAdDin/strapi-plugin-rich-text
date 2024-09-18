@@ -236,13 +236,15 @@ export const StyledEditor = styled("div")`
       cursor: col-resize;
     }
 
-    [data-youtube-video] {
+    [data-youtube-video],
+    .video-wrapper {
       position: relative;
       width: 100%;
       height: 0px;
       padding-bottom: 56.25%;
 
-      > iframe {
+      > iframe,
+      > video {
         position: absolute;
         left: 0;
         top: 0;
