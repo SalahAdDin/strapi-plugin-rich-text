@@ -1,6 +1,6 @@
 import { ReactNodeViewRenderer } from "@tiptap/react";
 
-import Video from "../../../extensions/extension-video";
+import { Video } from "../../../extensions/extension-video";
 
 const VideoNodeView = (Component: any) =>
   Video.extend({

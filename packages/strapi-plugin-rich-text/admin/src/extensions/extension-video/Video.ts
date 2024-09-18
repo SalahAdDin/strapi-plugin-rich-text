@@ -43,12 +43,14 @@ export const Video = Node.create({
     return {
       src: {
         default: null,
-        parseHTML: (el: any) => (el as HTMLSpanElement).getAttribute("src"),
-        renderHTML: (attrs: any) => ({ src: attrs.src }),
+        parseHTML: (element) =>
+          (element as HTMLSpanElement).getAttribute("src"),
+        renderHTML: (attributes) => ({ src: attributes.src }),
       },
       controls: {
         default: true,
-        parseHTML: (el: any) => {
+        renderHTML: (attrs) => ({ controls: attrs.controls }),
+        parseHTML: (el) => {
           if ((el as HTMLSpanElement).getAttribute("controls")) {
             return (el as HTMLSpanElement).getAttribute("controls");
           } else if ((el as HTMLSpanElement).hasAttribute("controls")) {
@@ -57,25 +59,30 @@ export const Video = Node.create({
             return false;
           }
         },
-        renderHTML: (attrs: any) => ({ controls: attrs.controls }),
+      },
+      controlslist: {
+        default: "",
+        renderHTML: (attributes) => {
+          return { controlslist: attributes.controlslist };
+        },
+        parseHTML: (element) => element.getAttribute("controlslist"),
       },
       documentId: {
         default: "",
-        renderHTML: (attributes: any) => {
+        renderHTML: (attributes) => {
           return { "data-document-id": attributes.documentId };
         },
-        parseHTML: (element: any) => element.getAttribute("data-document-id"),
+        parseHTML: (element) => element.getAttribute("data-document-id"),
       },
       videoResolution: {
         default: "404x720",
-        renderHTML: (attributes: any) => {
+        renderHTML: (attributes) => {
           return { "data-video-resolution": attributes.videoResolution };
         },
-        parseHTML: (element: any) =>
-          element.getAttribute("data-video-resolution"),
+        parseHTML: (element) => element.getAttribute("data-video-resolution"),
       },
       width: {
-        renderHTML: (attributes: any) => {
+        renderHTML: (attributes) => {
           return {
             width: parseInt(attributes.width),
           };
@@ -83,7 +90,7 @@ export const Video = Node.create({
         parseHTML: (element) => element.getAttribute("width"),
       },
       height: {
-        renderHTML: (attributes: any) => {
+        renderHTML: (attributes) => {
           return {
             height: parseInt(attributes.height),
           };
@@ -97,8 +104,8 @@ export const Video = Node.create({
     return [
       {
         tag: "div.video-wrapper>video,video",
-        getAttrs: (el: any) => ({
-          src: (el as HTMLVideoElement).getAttribute("src"),
+        getAttrs: (element) => ({
+          src: (element as HTMLVideoElement).getAttribute("src"),
         }),
       },
     ];
@@ -128,9 +135,9 @@ export const Video = Node.create({
           return commands.insertContentAt(
             state.selection,
             `<video 
+              src="${src}" 
               controls="${controls}" 
               controlslist="${controlslist}"
-              src="${src}" 
               width="${width}"
               height="${height}"
               data-document-id="${id}" 
