@@ -106,10 +106,14 @@ export default function Toolbar({ editor, settings }: ToolbarProps) {
     if (mediaType?.includes("videos")) {
       assets.forEach((asset) => {
         if (asset.mime.includes("video")) {
-          const { id, src, width, height } = getUpdatedVideo(asset);
+          const { id, src, width = 640, height = 480 } = getUpdatedVideo(asset);
 
           if (!forceInsert)
-            editor.chain().focus().setVideo(String(id), src, width, height);
+            editor
+              .chain()
+              .focus()
+              .setVideo(String(id), src, width, height)
+              .run();
           else editor.commands.setVideo(String(id), src, width, height);
         }
       });
