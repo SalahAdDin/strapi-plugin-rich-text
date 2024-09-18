@@ -50,4 +50,16 @@ type DialogProps = {
   onExit: () => void;
 };
 
-export type { AllowedTypes, Asset, AssetFormat, DialogTypes, DialogProps };
+type IconProps = {
+  size?: number;
+  color?: string;
+} & React.SVGAttributes<SVGElement>;
+
+export type {
+  AllowedTypes,
+  Asset,
+  AssetFormat,
+  DialogTypes,
+  DialogProps,
+  IconProps,
+};
