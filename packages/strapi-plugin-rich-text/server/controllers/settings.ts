@@ -1,9 +1,38 @@
 import { Strapi } from "@strapi/strapi";
 
 import defaultSettings from "../config/defaults";
-import { getCoreStore, getService } from "../utils";
+import { extractApiContentTypes, getCoreStore, getService } from "../utils";
 
 export default ({ strapi }: { strapi: Strapi }) => ({
+  async getContentTypes(ctx) {
+    const types = strapi.contentTypes;
+
+    const formattedTypes = extractApiContentTypes(
+      Object.keys(types).map((key) => ({
+        name: key,
+        attributes: types[key]["attributes"],
+        info: types[key]["info"],
+        // kind: data[key]["kind"],
+        key: types[key]["uid"],
+      }))
+    );
+
+    ctx.send(formattedTypes);
+  },
+  async getEntries(ctx) {
+    const { name } = ctx.params;
+    const entries = await strapi.entityService?.findMany(name);
+
+    const formattedEntries = (
+      entries as unknown as Array<Record<any, string>>
+    )?.map((entry) => ({
+      id: entry.id,
+      name: entry.name || entry.title,
+      uuid: entry.slug,
+    }));
+
+    ctx.send(formattedEntries);
+  },
   async getSettings(ctx) {
     if (!strapi?.store) {
       ctx.throw(500, "Strapi store is not available.");
