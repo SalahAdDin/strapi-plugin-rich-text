@@ -1,6 +1,6 @@
 import { Select, Option } from "@strapi/design-system/Select";
-import { Editor } from "@tiptap/react";
-import { useState, useCallback, useEffect } from "react";
+import { Editor, useEditorState } from "@tiptap/react";
+import { useCallback } from "react";
 import { useIntl } from "react-intl";
 import { Settings } from "../../../../../types/settings";
 
@@ -10,8 +10,6 @@ export default function BlockTypeSelect({
   editor,
   settings,
 }: BlockTypeSelectProps) {
-  const [selectedType, setSelectedType] = useState<string>("paragraph");
-
   const { formatMessage } = useIntl();
 
   const onSelect = useCallback((type: string) => {
@@ -59,27 +57,23 @@ export default function BlockTypeSelect({
     }, 50);
   }, []);
 
-  const setActiveType = useCallback(() => {
-    if (editor.isActive("heading", { level: 1 })) setSelectedType("h1");
-    if (editor.isActive("heading", { level: 2 })) setSelectedType("h2");
-    if (editor.isActive("heading", { level: 3 })) setSelectedType("h3");
-    if (editor.isActive("heading", { level: 4 })) setSelectedType("h4");
-    if (editor.isActive("heading", { level: 5 })) setSelectedType("h5");
-    if (editor.isActive("heading", { level: 6 })) setSelectedType("h6");
-    if (editor.isActive("alert")) setSelectedType("alert");
-    if (editor.isActive("paragraph")) setSelectedType("paragraph");
-    if (editor.isActive("codeBlock")) setSelectedType("codeBlock");
-    if (editor.isActive("blockquote")) setSelectedType("blockquote");
-    if (editor.isActive("orderedList")) setSelectedType("orderedList");
-    if (editor.isActive("bulletList")) setSelectedType("bulletList");
-  }, []);
-
-  useEffect(() => {
-    editor.on("selectionUpdate", setActiveType);
-    return () => {
-      editor.off("selectionUpdate", setActiveType);
-    };
-  }, [editor]);
+  const selectedType = useEditorState({
+    editor,
+    selector: (ctx) => {
+      if (editor.isActive("heading", { level: 1 })) return "h1";
+      if (editor.isActive("heading", { level: 2 })) return "h2";
+      if (editor.isActive("heading", { level: 3 })) return "h3";
+      if (editor.isActive("heading", { level: 4 })) return "h4";
+      if (editor.isActive("heading", { level: 5 })) return "h5";
+      if (editor.isActive("heading", { level: 6 })) return "h6";
+      if (editor.isActive("alert")) return "alert";
+      if (editor.isActive("paragraph")) return "paragraph";
+      if (editor.isActive("codeBlock")) return "codeBlock";
+      if (editor.isActive("blockquote")) return "blockquote";
+      if (editor.isActive("orderedList")) return "orderedList";
+      if (editor.isActive("bulletList")) return "bulletList";
+    },
+  });
 
   return (
     <Select
