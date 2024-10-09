@@ -2,6 +2,10 @@ import pluginPkg from "../../package.json";
 import { ContentType } from "../../types/contentTypes";
 import { Settings } from "../../types/settings";
 
+const API_PREFIX = "api::";
+
+const API_PATTERN = /^api::[\w-]+\.[\w-]+$/;
+
 const name = pluginPkg.strapi.name;
 
 const getConfig = (): Settings => {
@@ -16,11 +20,9 @@ const getService = (service: string) => {
   return strapi.plugin(name).service(service);
 };
 
-const API_PREFIX = "api::";
-
 export const extractApiContentTypes = (
   contentTypes: Array<ContentType>
 ): Array<ContentType> =>
   contentTypes.filter((contentType) => contentType.name.startsWith(API_PREFIX));
 
-export { getService, getCoreStore, getConfig };
+export { getService, getCoreStore, getConfig, API_PATTERN };

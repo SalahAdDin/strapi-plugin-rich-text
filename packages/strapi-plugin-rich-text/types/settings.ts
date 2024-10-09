@@ -56,4 +56,5 @@ type Settings = {
     }; */
 };
 
-export type { Settings };
+export type { Headings, ListType, Settings, TextAlign };
+export { HEADINGS, LIST_TYPE, TEXT_ALIGN };
