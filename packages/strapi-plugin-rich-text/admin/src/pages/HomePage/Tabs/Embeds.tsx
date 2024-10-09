@@ -119,7 +119,7 @@ const Embeds = ({ values, handleChange }: EmbedProps) => {
         </Box>
       </GridLayout>
 
-      <Box marginBottom={"1rem"}>
+      <Box marginTop={"2rem"} marginBottom={"1rem"}>
         <Typography variant={"beta"}>
           {formatMessage({
             id: "rich-text.settings.title.image",

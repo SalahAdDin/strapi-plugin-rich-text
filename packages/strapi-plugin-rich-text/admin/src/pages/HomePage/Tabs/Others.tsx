@@ -12,7 +12,7 @@ type OtherProps = TabContent;
 const Others = ({ values, handleChange }: OtherProps) => {
   const { formatMessage } = useIntl();
 
-  const wordcount = values.other && values.other.wordcount;
+  const wordcount = values.other.wordcount;
 
   return (
     <>
@@ -25,71 +25,68 @@ const Others = ({ values, handleChange }: OtherProps) => {
         </Typography>
       </Box>
 
-      <GridLayout>
-        <Box>
-          <ToggleInput
-            label={formatMessage({
-              id: "rich-text.settings.label.word-count",
-              defaultMessage: "Word count",
-            })}
-            hint={formatMessage({
-              id: "rich-text.settings.hint.word-count",
-              defaultMessage: "Show a word counter under the editor",
-            })}
-            size="S"
-            name="other.wordcount"
-            onLabel={formatMessage({
-              id: "rich-text.settings.label.enabled",
-              defaultMessage: "Enabled",
-            })}
-            offLabel={formatMessage({
-              id: "rich-text.settings.label.disabled",
-              defaultMessage: "Disabled",
-            })}
-            checked={wordcount}
-            onChange={() =>
-              handleChange({
-                target: {
-                  name: "other.wordcount",
-                  value: !wordcount,
-                },
-              })
-            }
-          />
-        </Box>
-        <Box>
-          <TextInput
-            label={formatMessage({
-              id: "rich-text.settings.label.character-limit",
-              defaultMessage: "Character Limit",
-            })}
-            type="number"
-            placeholder={formatMessage({
-              id: "rich-text.settings.placeholder.character-limit",
-              defaultMessage:
-                "The maximum number of characters for the content",
-            })}
-            name="characterLimit"
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              handleChange({
-                target: {
-                  name: "other.characterLimit",
-                  value: e.target.value,
-                },
-              })
-            }
-            value={values.other.characterLimit}
-            aria-label={formatMessage({
-              id: "rich-text.settings.label.character-limit",
-              defaultMessage: "Character Limit",
-            })}
-          />
-        </Box>
-      </GridLayout>
-
-      <Box marginTop={"2rem"} marginBottom={"1rem"}></Box>
-
-      <GridLayout>
+      <GridLayout gridCols={2} gap={4}>
+        <Stack spacing={4}>
+          <Box>
+            <ToggleInput
+              label={formatMessage({
+                id: "rich-text.settings.label.word-count",
+                defaultMessage: "Word count",
+              })}
+              hint={formatMessage({
+                id: "rich-text.settings.hint.word-count",
+                defaultMessage: "Show a word counter under the editor",
+              })}
+              size="S"
+              name="other.wordcount"
+              onLabel={formatMessage({
+                id: "rich-text.settings.label.enabled",
+                defaultMessage: "Enabled",
+              })}
+              offLabel={formatMessage({
+                id: "rich-text.settings.label.disabled",
+                defaultMessage: "Disabled",
+              })}
+              checked={wordcount}
+              onChange={() =>
+                handleChange({
+                  target: {
+                    name: "other.wordcount",
+                    value: !wordcount,
+                  },
+                })
+              }
+            />
+          </Box>
+          <Box>
+            <TextInput
+              label={formatMessage({
+                id: "rich-text.settings.label.character-limit",
+                defaultMessage: "Character Limit",
+              })}
+              type="number"
+              placeholder={formatMessage({
+                id: "rich-text.settings.placeholder.character-limit",
+                defaultMessage:
+                  "The maximum number of characters for the content",
+              })}
+              name="characterLimit"
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                handleChange({
+                  target: {
+                    name: "other.characterLimit",
+                    value: e.target.value,
+                  },
+                })
+              }
+              value={values.other.characterLimit}
+              aria-label={formatMessage({
+                id: "rich-text.settings.label.character-limit",
+                defaultMessage: "Character Limit",
+              })}
+            />
+          </Box>
+        </Stack>
         <Box>
           <ToggleInput
             label={formatMessage({
