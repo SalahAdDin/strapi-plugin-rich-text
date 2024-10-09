@@ -7,15 +7,19 @@ export default ({ strapi }: { strapi: Strapi }) => ({
   async getContentTypes(ctx) {
     const types = strapi.contentTypes;
 
-    const formattedTypes = extractApiContentTypes(
-      Object.keys(types).map((key) => ({
-        name: key,
-        attributes: types[key]["attributes"],
-        info: types[key]["info"],
-        // kind: data[key]["kind"],
-        key: types[key]["uid"],
-      }))
-    );
+    const apiTypes = Object.keys(types).map((key) => ({
+      name: key,
+      attributes: types[key]["attributes"],
+      info: types[key]["info"],
+      // kind: data[key]["kind"],
+      key: types[key]["uid"],
+    }));
+
+    const { other } = await getService("settings").getConfig();
+
+    const formattedTypes = other.types
+      ? apiTypes.filter((type) => other.types.includes(type.name))
+      : extractApiContentTypes(apiTypes);
 
     ctx.send(formattedTypes);
   },
@@ -23,13 +27,21 @@ export default ({ strapi }: { strapi: Strapi }) => ({
     const { name } = ctx.params;
     const entries = await strapi.entityService?.findMany(name);
 
+    const { other } = await getService("settings").getConfig();
+
     const formattedEntries = (
       entries as unknown as Array<Record<any, string>>
-    )?.map((entry) => ({
-      id: entry.id,
-      name: entry.name || entry.title,
-      uuid: entry.slug,
-    }));
+    )?.map((entry) => {
+      const nameField = other?.labelFields?.find((field) => entry[field]);
+
+      const uuidField = other?.uuidField?.find((field) => entry[field]);
+
+      return {
+        id: entry.id,
+        name: entry[nameField] || entry.name || entry.title,
+        uuid: entry[uuidField] || entry.slug,
+      };
+    });
 
     ctx.send(formattedEntries);
   },
