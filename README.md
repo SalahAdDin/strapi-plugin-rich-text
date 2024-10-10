@@ -74,6 +74,65 @@ export default [
 
 ---
 
+##### Settings
+
+Below is a table that breaks down all the available settings, specifying whether they are required, what values they can take, and what their default settings are. This should help you understand the customization possibilities for each feature, from text alignment to enabling video embeds.
+
+| **Name**                        | **Required** | **Values**                                                                                          | **Default Value**                                    |
+|---------------------------------|--------------|-----------------------------------------------------------------------------------------------------|------------------------------------------------------|
+| `headings`                      | Yes          | Array of headings in `h*` format                                                  | `["h1", "h2", "h3", "h4", "h4", "h5", "h6"]`          |
+| `abbreviation`                  | Yes          | `boolean`                                                                                            | `false`                                              |
+| `alert`                         | Yes          | `boolean`                                                                                            | `false`                                              |
+| `bold`                          | Yes          | `boolean`                                                                                            | `true`                                               |
+| `italic`                        | Yes          | `boolean`                                                                                            | `true`                                               |
+| `strikethrough`                 | Yes          | `boolean`                                                                                            | `true`                                               |
+| `underline`                     | Yes          | `boolean`                                                                                            | `true`                                               |
+| `code`                          | Yes          | `boolean`                                                                                            | `true`                                               |
+| `blockquote`                    | Yes          | `boolean`                                                                                            | `true`                                               |
+| `color`                         | Yes          | `boolean`                                                                                            | `false`                                              |
+| `highlight`                     | Yes          | `boolean`                                                                                            | `false`                                              |
+| `align`                         | Yes          | Array of `"left", "center", "right"`                                                        | `["left", "center", "right"]`                        |
+| `lists`                         | Yes          | Array of `"ol", "ul"`                                                            | `["ol", "ul"]`                                       |
+| `disableOrderedListShorthand`   | Yes          | `boolean`                                                                                            | `false`                                              |
+| `table`                         | Yes          | `boolean`                                                                                            | `false`                                              |
+| `hardbreak`                     | Yes          | `boolean`                                                                                            | `true`                                               |
+| `horizontal`                    | Yes          | `boolean`                                                                                            | `true`                                               |
+| `links.enabled`                 | Yes          | `boolean`                                                                                            | `true`                                               |
+| `links.autolink`                | Yes          | `boolean`                                                                                            | `false`                                              |
+| `links.openOnClick`             | Yes          | `boolean`                                                                                            | `false`                                              |
+| `links.linkOnPaste`             | Yes          | `boolean`                                                                                            | `true`                                               |
+| `links.HTMLAttributes.rel`      | Yes          | `string`                                                                                             | `""`                                                 |
+| `audio`                         | Yes          | `boolean`                                                                                            | `true`                                               |
+| `file`                          | Yes          | `boolean`                                                                                            | `true`                                               |
+| `image.enabled`                 | Yes          | `boolean`                                                                                            | `true`                                               |
+| `image.inline`                  | Yes          | `boolean`                                                                                            | `true`                                               |
+| `image.allowBase64`             | Yes          | `boolean`                                                                                            | `false`                                              |
+| `video`                         | Yes          | `boolean`                                                                                            | `true`                                               |
+| `other.characterLimit`          | No           | `number` or `undefined`                                                                              | `undefined`                                          |
+| `other.wordcount`               | Yes          | `boolean`                                                                                            | `false`                                              |
+| `other.saveJson`                | Yes          | `boolean`                                                                                            | `false`                                              |
+| `other.types`                   | No           | Array of `string`                                                                                    | `undefined`                                          |
+| `other.labelFields`             | No           | Array of `string`                                                                                    | `["name", "title"]`                                  |
+| `other.uuidFields`              | No           | Array of `string`                                                                                    | `["slug"]`                                           |
+| `youtube.enabled`               | Yes          | `boolean`                                                                                            | `true`                                               |
+| `youtube.height`                | Yes          | `number`                                                                                             | `480`                                                |
+| `youtube.width`                 | Yes          | `number`                                                                                             | `640`                                                |
+
+The following is an example of a possible configuration:
+```ts
+"richtext-editor": {
+    enabled: true,
+    config: {
+      headings: ["h2", "h3", "h4", "h5", "h6"],
+      other: {
+        wordcount: true,
+        saveJson: true,
+        types: ["api::post.post"],
+      },
+    },
+  },
+```
+
 ## Contributing
 
 This project uses Node.js 18 and pnpm. Make sure to meet these requirements before running
