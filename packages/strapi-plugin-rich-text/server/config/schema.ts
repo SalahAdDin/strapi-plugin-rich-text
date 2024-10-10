@@ -86,6 +86,8 @@ const settingsSchema = object({
     },
     "links must be an object with valid properties"
   ),
+  audio: boolean("audio must be a boolean"),
+  file: boolean("file must be a boolean"),
   image: object(
     {
       enabled: boolean("image.enabled must be a boolean"),
@@ -94,11 +96,26 @@ const settingsSchema = object({
     },
     "image must be an object with valid properties"
   ),
+  video: boolean("video must be a boolean"),
   other: object(
     {
       characterLimit: optional(number("other.characterLimit must be a number")),
       wordcount: boolean("other.wordcount must be a boolean"),
       saveJson: boolean("other.saveJson must be a boolean"),
+      types: optional(
+        array(
+          pipe(
+            string("other.types must be an array of strings"),
+            regex(API_PATTERN, "Invalid API pattern")
+          )
+        )
+      ),
+      labelFields: optional(
+        array(string("other.labelFields must be an array of strings"))
+      ),
+      uuidFields: optional(
+        array(string("other.uuidFields must be an array of strings"))
+      ),
     },
     "other must be an object with valid properties"
   ),

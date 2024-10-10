@@ -59,8 +59,8 @@ export const getUpdatedFile = (asset: Asset) => ({
 export const getUpdatedImage = (asset: Asset) => ({
   src: asset.url,
   alt: asset.alternativeText,
-  ...(asset.width && { width: asset.width }),
-  ...(asset.height && { height: asset.height }),
+  width: asset.width ?? 640,
+  height: asset.height ?? 480,
   ...((asset.url?.includes("lazy") || asset.caption === "lazy") && {
     loading: "lazy",
   }),

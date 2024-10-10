@@ -16,7 +16,7 @@ const createDefaultConfig = async () => {
   return pluginStore.get({ key: "settings" });
 };
 
-export default ({ strapi: _ }: { strapi: Strapi }) => ({
+export default ({ strapi }: { strapi: Strapi }) => ({
   getConfig: async () => {
     let config = await getCoreStore().get({ key: "settings" });
 

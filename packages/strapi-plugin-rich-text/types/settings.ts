@@ -45,6 +45,9 @@ type Settings = {
     characterLimit?: number;
     wordcount: boolean;
     saveJson: boolean;
+    types?: Array<string>;
+    labelFields?: Array<string>;
+    uuidFields?: Array<string>;
   };
   youtube: {
     enabled: boolean;

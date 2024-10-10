@@ -7,6 +7,7 @@ export default {
       other: {
         wordcount: true,
         saveJson: true,
+        types: ["api::post.post"],
       },
     },
   },

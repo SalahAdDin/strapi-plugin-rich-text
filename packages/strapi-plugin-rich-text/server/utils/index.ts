@@ -1,4 +1,5 @@
 import pluginPkg from "../../package.json";
+import { ContentType } from "../../types/contentTypes";
 import { Settings } from "../../types/settings";
 
 const API_PREFIX = "api::";

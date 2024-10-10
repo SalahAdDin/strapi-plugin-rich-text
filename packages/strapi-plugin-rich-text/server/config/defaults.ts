@@ -38,6 +38,8 @@ const defaultSettings: Settings = {
   other: {
     wordcount: false,
     saveJson: false,
+    labelFields: ["name", "title"],
+    uuidFields: ["slug"],
   },
   youtube: {
     enabled: true,

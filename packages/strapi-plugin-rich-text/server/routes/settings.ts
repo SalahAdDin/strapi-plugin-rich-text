@@ -17,5 +17,21 @@ export default {
         policies: ["admin::isAuthenticatedAdmin"],
       },
     },
+    {
+      method: "GET",
+      path: "/content-types",
+      handler: "settings.getContentTypes",
+      config: {
+        policies: ["admin::isAuthenticatedAdmin"],
+      },
+    },
+    {
+      method: "GET",
+      path: "/content-types/:name",
+      handler: "settings.getEntries",
+      config: {
+        policies: ["admin::isAuthenticatedAdmin"],
+      },
+    },
   ],
 };
