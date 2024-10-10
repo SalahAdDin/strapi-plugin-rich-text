@@ -4,5 +4,6 @@ export const addRemoveFromList = <T>(list: Array<T>, val: T) => {
   } else {
     list.splice(list.indexOf(val), 1);
   }
+
   return list;
 };
