@@ -2,7 +2,6 @@ import { Box } from "@strapi/design-system/Box";
 import { GridLayout } from "@strapi/design-system/Layout";
 import { ToggleInput } from "@strapi/design-system/ToggleInput";
 import { Typography } from "@strapi/design-system/Typography";
-import { Field } from "@strapi/design-system/Field";
 import { useIntl } from "react-intl";
 
 import { addRemoveFromList } from "../../../utils/helpers";
@@ -26,33 +25,31 @@ const Text = ({ values, handleChange }: TextProps) => {
 
       <GridLayout>
         <Box>
-          <Field>
-            <ToggleInput
-              label={formatMessage({
-                id: "rich-text.settings.label.heading-1",
-                defaultMessage: "Heading 1",
-              })}
-              size="S"
-              name="headings"
-              onLabel={formatMessage({
-                id: "rich-text.settings.label.enabled",
-                defaultMessage: "Enabled",
-              })}
-              offLabel={formatMessage({
-                id: "rich-text.settings.label.disabled",
-                defaultMessage: "Disabled",
-              })}
-              checked={values.headings.includes("h1")}
-              onChange={() =>
-                handleChange({
-                  target: {
-                    name: "headings",
-                    value: addRemoveFromList([...values.headings], "h1"),
-                  },
-                })
-              }
-            />
-          </Field>
+          <ToggleInput
+            label={formatMessage({
+              id: "rich-text.settings.label.heading-1",
+              defaultMessage: "Heading 1",
+            })}
+            size="S"
+            name="headings"
+            onLabel={formatMessage({
+              id: "rich-text.settings.label.enabled",
+              defaultMessage: "Enabled",
+            })}
+            offLabel={formatMessage({
+              id: "rich-text.settings.label.disabled",
+              defaultMessage: "Disabled",
+            })}
+            checked={values.headings.includes("h1")}
+            onChange={() =>
+              handleChange({
+                target: {
+                  name: "headings",
+                  value: addRemoveFromList([...values.headings], "h1"),
+                },
+              })
+            }
+          />
         </Box>
         <Box>
           <ToggleInput
@@ -550,8 +547,6 @@ const Text = ({ values, handleChange }: TextProps) => {
             }
           />
         </Box>
-        <Box></Box>
-        <Box></Box>
 
         <Box>
           <ToggleInput
